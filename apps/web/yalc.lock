@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "@mable/design": {
+      "signature": "19e0e4838e860eea938ad4d522247e4c",
+      "file": true,
+      "replaced": "dist/packages/design"
+    }
+  }
+}

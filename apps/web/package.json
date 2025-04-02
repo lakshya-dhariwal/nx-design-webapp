@@ -1,9 +1,14 @@
 {
-  "name": "@mable/web",
+  "name": "web",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">=20"
+  },
+  "scripts": {
+    "development": "npx nx build hound && npx nx serve web",
+    "build": "npx nx build web",
+    "lint": "npx nx lint web"
   },
   "sideEffects": false,
   "nx": {

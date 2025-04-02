@@ -1,5 +1,5 @@
 {
-    "root": "apps/mcp",
+  "name": "mcp",
     "sourceRoot": "apps/mcp/src",
     "projectType": "application",
     "targets": {

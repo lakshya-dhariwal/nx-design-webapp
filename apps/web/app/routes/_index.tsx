@@ -1,9 +1,25 @@
-import NxWelcome from '../nx-welcome';
+import { FC } from "react";
+import {ChatWidget} from "@mable/hound";
+import useChatWidget from "../lib/chat/"; 
 
-export default function Index() {
+const ChatPage: FC = () => {
+  const { messages, isGenerating, sendMessage } = useChatWidget();
+
+  const handleSendMessage = async (message: string) => {
+    await sendMessage(message);
+  };
+
   return (
-    <div>
-      <NxWelcome title={'@mable/web'} />
+    <div className="container mx-auto p-4">
+      <ChatWidget
+        onSendMessage={handleSendMessage}
+        messages={messages}
+        isGenerating={isGenerating}
+        title="Campaign Manger"
+        placeholder="Type your message..."
+      />
     </div>
   );
-}
+};
+
+export default ChatPage;

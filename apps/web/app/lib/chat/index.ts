@@ -1,1 +1,3 @@
-export * from './useChatWidget'
+import useChatWidget from './useChatWidget'
+
+export default useChatWidget

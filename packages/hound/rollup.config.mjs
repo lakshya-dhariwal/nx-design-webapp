@@ -27,7 +27,7 @@ export default [
       resolve(),
       postcss(),
       typescript({
-        tsconfig: './packages/design/tsconfig.lib.json',
+        tsconfig: './packages/hound/tsconfig.lib.json',
         declaration: true,
         declarationDir: 'dist/types',
         emitDeclarationOnly: false,

@@ -1,4 +1,4 @@
-# @mable/design
+# @mable/hound
 
 This library was generated with [Nx](https://nx.dev).
 

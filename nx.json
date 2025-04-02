@@ -1,133 +1,84 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.mjs",
-      "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-      "!{projectRoot}/.storybook/**/*",
-      "!{projectRoot}/tsconfig.storybook.json"
-    ],
-    "sharedGlobals": []
+  "targetDefaults": {
+      "build": {
+          "cache": true,
+          "dependsOn": ["^build"],
+          "inputs": ["production", "^production"]
+      },
+      "lint": {
+          "cache": true,
+          "inputs": [
+              "default",
+              "{workspaceRoot}/.eslintrc.json",
+              "{workspaceRoot}/.eslintignore",
+              "{workspaceRoot}/eslint.config.js"
+          ]
+      },
+      "@nx/jest:jest": {
+          "cache": true,
+          "inputs": [
+              "default",
+              "^production",
+              "{workspaceRoot}/jest.preset.js"
+          ],
+          "options": {
+              "passWithNoTests": true
+          },
+          "configurations": {
+              "ci": {
+                  "ci": true,
+                  "codeCoverage": true
+              }
+          }
+      },
+      "build-storybook": {
+          "cache": true,
+          "inputs": [
+              "default",
+              "^production",
+              "{projectRoot}/.storybook/**/*",
+              "{projectRoot}/tsconfig.storybook.json"
+          ]
+      }
   },
-  "nxCloudId": "67ec5d98f0afad623c9ee390",
-  "plugins": [
-    {
-      "plugin": "@nx/js/typescript",
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        },
-        "build": {
-          "targetName": "build",
-          "configName": "tsconfig.lib.json",
-          "buildDepsName": "build-deps",
-          "watchDepsName": "watch-deps"
-        }
-      }
-    },
-    {
-      "plugin": "@nx/remix/plugin",
-      "options": {
-        "startTargetName": "start",
-        "buildTargetName": "build",
-        "devTargetName": "dev",
-        "typecheckTargetName": "typecheck",
-        "serveStaticTargetName": "serve-static",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
-      }
-    },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/rollup/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "buildDepsTargetName": "build-deps",
-        "watchDepsTargetName": "watch-deps"
-      }
-    },
-    {
-      "plugin": "@nx/storybook/plugin",
-      "options": {
-        "serveStorybookTargetName": "storybook",
-        "buildStorybookTargetName": "build-storybook",
-        "testStorybookTargetName": "test-storybook",
-        "staticStorybookTargetName": "static-storybook"
-      }
-    }
-  ],
-  "projects": {
-    "web": {
-      "root": "apps/web",
-      "sourceRoot": "apps/web/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nx/remix:build",
-          "options": {
-            "outputPath": "dist/apps/web"
-          }
-        },
-        "serve": {
-          "builder": "@nx/remix:serve",
-          "options": {
-            "buildTarget": "web:build"
-          }
-        }
-      }
-    },
-    "mcp": {
-      "root": "apps/mcp",
-      "sourceRoot": "apps/mcp/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nx/js:build",
-          "options": {
-            "outputPath": "dist/apps/mcp"
-          }
-        },
-        "serve": {
-          "builder": "@nx/js:serve",
-          "options": {
-            "buildTarget": "mcp:build"
-          }
-        }
-      }
-    },
-    "design": {
-      "root": "packages/design",
-      "sourceRoot": "packages/design/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nx/rollup:build",
-          "options": {
-            "outputPath": "dist/packages/design"
-          }
-        },
-        "storybook": {
-          "builder": "@nx/storybook:build",
-          "options": {
-            "outputPath": "dist/storybook/packages/design"
-          }
-        }
-      }
-    }
+  "namedInputs": {
+      "default": ["{projectRoot}/**/*", "sharedGlobals"],
+      "production": [
+          "default",
+          "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+          "!{projectRoot}/tsconfig.spec.json",
+          "!{projectRoot}/jest.config.[jt]s",
+          "!{projectRoot}/src/test-setup.[jt]s",
+          "!{projectRoot}/test-setup.[jt]s",
+          "!{projectRoot}/.eslintrc.json",
+          "!{projectRoot}/eslint.config.js",
+          "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+          "!{projectRoot}/.storybook/**/*",
+          "!{projectRoot}/tsconfig.storybook.json"
+      ],
+      "sharedGlobals": []
   },
   "generators": {
-    "@nx/react": {
-      "library": {
-        "unitTestRunner": "none"
+      "@nx/react": {
+          "application": {
+              "babel": true
+          },
+          "library": {
+              "unitTestRunner": "none"
+          }
+      },
+      "@nx/remix": {
+          "application": {
+              "linter": "eslint"
+          }
       }
-    }
+  },
+  "tasksRunnerOptions": {
+      "default": {
+          "options": {
+              "cacheableOperations": ["build-storybook"]
+          }
+      }
   }
 }

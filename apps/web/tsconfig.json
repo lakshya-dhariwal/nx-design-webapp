@@ -1,8 +1,16 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": [],
-  "files": [],
+  "compilerOptions": {
+    "baseUrl": "."
+    // "paths": {
+    //   "@mable/design": ["../../dist/packages/design/"]
+    // }
+  },
+  "include": ["src/**/*"],
   "references": [
+    {
+      "path": "../../packages/design"
+    },
     {
       "path": "./tsconfig.app.json"
     }

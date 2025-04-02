@@ -16,11 +16,15 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2022",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["*"]
     },
     "jsx": "react-jsx",
-    //"allowImportingTsExtensions": true
+    "paths": {
+      //* @staq/design paths
+      "@mable/hound": ["packages/hound/src/index.ts"],
+      "@mable/hound/*": ["packages/hound/src/*"],
+  }
   }
 }

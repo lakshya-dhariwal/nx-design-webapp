@@ -1,0 +1,30 @@
+{
+  "name": "web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web/src",
+  "projectType": "application",
+  "tags": ["scope:app", "type:ui"],
+  "targets": {
+    "build": {
+      "executor": "@nx/remix:build",
+      "outputs": ["{workspaceRoot}/dist/apps/web"],
+      "options": {
+        "buildTarget": "web:build",
+        "tsConfig": "apps/web/tsconfig.app.json",
+        "outputPath": "dist/apps/web"
+      }
+    },
+    "serve": {
+      "executor": "@nx/remix:serve",
+      "options": {
+        "buildTarget": "web:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/web/**/*.{ts,tsx}"]
+      }
+    }
+  }
+}
