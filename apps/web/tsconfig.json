@@ -1,18 +1,28 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "."
-    // "paths": {
-    //   "@mable/design": ["../../dist/packages/design/"]
-    // }
+    "types": ["@remix-run/node", "vite/client"],
+      "jsx": "preserve",
+      "allowJs": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "incremental": true,
+      "plugins": [
+          {
+              "name": "remix"
+          }
+      ],
   },
-  "include": ["src/**/*"],
-  "references": [
-    {
-      "path": "../../packages/design"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    }
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
+  "exclude": [
+      "node_modules",
+      "src/**/*.spec.ts",
+      "src/**/*.test.ts"
   ]
 }
+

@@ -20,8 +20,8 @@
     "jsx": "react-jsx",
     "paths": {
       //* @staq/design paths
-      "@mable/hound": ["packages/hound/src/index.ts"],
-      "@mable/hound/*": ["packages/hound/src/*"],
+      "@mable/hound": ["dist/packages/hound/index.esm.ts"],
+      "@mable/hound/*": ["dist/packages/hound/*"],
       "@/*" : ["packages/hound/src/*"],
   }
   }

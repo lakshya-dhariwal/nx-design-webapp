@@ -1,6 +1,8 @@
 import { FC } from "react";
-import {ChatWidget} from "@mable/hound";
+// import {ChatWidget} from "dist/packages/hound";
+import { ChatWidget } from "@mable/hound";
 import useChatWidget from "../lib/chat/"; 
+import React from "react";
 
 const ChatPage: FC = () => {
   const { messages, isGenerating, sendMessage } = useChatWidget();
