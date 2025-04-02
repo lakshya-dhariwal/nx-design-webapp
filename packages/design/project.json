@@ -1,0 +1,16 @@
+{
+    "name": "design",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/design/src",
+    "projectType": "library",
+    "tags": ["scope:shared", "type:ui"],
+    "targets": {
+      "build": {
+        "executor": "@nx/vite:build",
+        "outputs": ["{workspaceRoot}/dist/packages/design"],
+        "options": {
+          "config": "packages/design/vite.config.ts"
+        }
+      }
+    }
+  }

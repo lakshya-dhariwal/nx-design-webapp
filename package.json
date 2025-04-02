@@ -2,20 +2,76 @@
   "name": "@mable/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@eslint/js": "^9.8.0",
+    "@nx/eslint": "^20.7.0",
+    "@nx/eslint-plugin": "20.7.0",
     "@nx/js": "20.7.0",
+    "@nx/react": "^20.7.0",
+    "@nx/remix": "^20.7.0",
+    "@nx/rollup": "20.7.0",
+    "@nx/storybook": "^20.7.0",
+    "@nx/vite": "^20.7.0",
+    "@nx/web": "20.7.0",
+    "@remix-run/dev": "^2.15.0",
+    "@rollup/plugin-url": "^8.0.2",
+    "@storybook/addon-essentials": "^8.4.6",
+    "@storybook/core-server": "^8.4.6",
+    "@storybook/react-vite": "^8.4.6",
+    "@svgr/rollup": "^8.1.0",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/node": "^20.0.0",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "core-js": "^3.36.1",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^10.0.0",
     "nx": "20.7.0",
     "prettier": "^2.6.2",
+    "rollup": "^4.14.0",
+    "storybook": "^8.4.6",
+    "ts-node": "10.9.1",
     "tslib": "^2.3.0",
-    "typescript": "~5.7.2"
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.19.0",
+    "verdaccio": "^6.0.5",
+    "vitest": "^3.1.1"
   },
   "workspaces": [
-    "packages/*"
-  ]
+    "packages/*",
+    "apps/web",
+    "apps/web/packages/*",
+    "packages/design",
+    "packages/design/*"
+  ],
+  "packageManager": "yarn@4.4.1+sha512.f825273d0689cc9ead3259c14998037662f1dcd06912637b21a450e8da7cfeb4b1965bbee73d16927baa1201054126bc385c6f43ff4aa705c8631d26e12460f1",
+  "dependencies": {
+    "@remix-run/node": "^2.15.0",
+    "@remix-run/react": "^2.15.0",
+    "@remix-run/serve": "^2.15.0",
+    "isbot": "^4.4.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "vite": "^6.2.4"
+  },
+  "nx": {
+    "includedScripts": [],
+    "targets": {
+      "local-registry": {
+        "executor": "@nx/js:verdaccio",
+        "options": {
+          "port": 4873,
+          "config": ".verdaccio/config.yml",
+          "storage": "tmp/local-registry/storage"
+        }
+      }
+    }
+  }
 }
