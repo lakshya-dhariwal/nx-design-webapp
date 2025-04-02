@@ -2,6 +2,7 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 import { IoSend } from "react-icons/io5";
 import { motion } from "framer-motion";
+import LoadingDots from "@/components/Loaders/LoadingDots";
 
 interface ChatInputProps {
   onSendMessage: (message: string) => Promise<void>;
@@ -78,26 +79,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
           active: !!message.trim() && !isInputDisabled,
         })}
       >
-        {isSending ?
-          //todo: fix rillup build error: unabale to build LoadingDots
-          // <LoadingDots size="md" />
-          <div className={'flex space-x-1'}  >
-            {[0, 1, 2].map((i) =>
-            (<motion.div
-              key={i}
-              className={'w-2 h-2 rounded-full bg-gray-200'}
-              animate={{
-                opacity: [0.4, 1, 0.4],
-                scale: [0.9, 1.1, 0.9],
-              }}
-              transition={{
-                duration: 1,
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-            />
-            ))}
-          </div> : <IoSend size={20} />}
+        {isSending ? <LoadingDots size="md" /> : <IoSend size={20} />}
       </button>
     </form>
   );

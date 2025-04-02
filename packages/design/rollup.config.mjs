@@ -1,8 +1,7 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import generateIndex from './generateIndex.plugin.js';
 
@@ -26,10 +25,9 @@ export default [
       generateIndex(),
       peerDepsExternal(),
       resolve(),
-      commonjs(),
-      postcss(), // supports CSS Modules
+      postcss(),
       typescript({
-        tsconfig: './tsconfig.lib.json',
+        tsconfig: './packages/design/tsconfig.lib.json',
         declaration: true,
         declarationDir: 'dist/types',
         emitDeclarationOnly: false,

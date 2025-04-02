@@ -47,17 +47,6 @@
       }
     },
     {
-      "plugin": "@nx/react/router-plugin",
-      "options": {
-        "buildTargetName": "build",
-        "devTargetName": "dev",
-        "startTargetName": "start",
-        "watchDepsTargetName": "watch-deps",
-        "buildDepsTargetName": "build-deps",
-        "typecheckTargetName": "typecheck"
-      }
-    },
-    {
       "plugin": "@nx/rollup/plugin",
       "options": {
         "buildTargetName": "build",
@@ -75,9 +64,63 @@
       }
     }
   ],
-  "release": {
-    "version": {
-      "preVersionCommand": "yarn dlx nx run-many -t build"
+  "projects": {
+    "web": {
+      "root": "apps/web",
+      "sourceRoot": "apps/web/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nx/remix:build",
+          "options": {
+            "outputPath": "dist/apps/web"
+          }
+        },
+        "serve": {
+          "builder": "@nx/remix:serve",
+          "options": {
+            "buildTarget": "web:build"
+          }
+        }
+      }
+    },
+    "mcp": {
+      "root": "apps/mcp",
+      "sourceRoot": "apps/mcp/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nx/js:build",
+          "options": {
+            "outputPath": "dist/apps/mcp"
+          }
+        },
+        "serve": {
+          "builder": "@nx/js:serve",
+          "options": {
+            "buildTarget": "mcp:build"
+          }
+        }
+      }
+    },
+    "design": {
+      "root": "packages/design",
+      "sourceRoot": "packages/design/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nx/rollup:build",
+          "options": {
+            "outputPath": "dist/packages/design"
+          }
+        },
+        "storybook": {
+          "builder": "@nx/storybook:build",
+          "options": {
+            "outputPath": "dist/storybook/packages/design"
+          }
+        }
+      }
     }
   },
   "generators": {

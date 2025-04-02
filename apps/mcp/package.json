@@ -1,0 +1,16 @@
+{
+    "name": "@mable/mcp",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "@modelcontextprotocol/sdk": "latest",
+      "@ai-sdk/openai": "latest",
+      "@ai-sdk/mistral": "latest",
+      "dotenv": "^10.0.0",
+      "ai": "latest"
+    }
+  }
+  

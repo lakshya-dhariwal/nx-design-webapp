@@ -2,6 +2,7 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 import { IoWarning } from "react-icons/io5";
 import { motion } from "framer-motion";
+import LoadingDots from "@/components/Loaders/LoadingDots";
 
 export interface ChatMessageProps {
   content: string;
@@ -44,26 +45,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
         })}
       >
         {isLoading ? (
-          //todo: fix rillup build error: unabale to build LoadingDots
-          // <LoadingDots size="sm" />
-          <div className={'flex space-x-1'}  >
-            {[0, 1, 2].map((i) =>
-              (<motion.div
-                key={i}
-                className={'w-1.5 h-1.5 rounded-full bg-gray-200'}
-                animate={{
-                  opacity: [0.4, 1, 0.4],
-                  scale: [0.9, 1.1, 0.9],
-                }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </div>
-
+          <LoadingDots size="sm" />
         ) : error ? (
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
