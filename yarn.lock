@@ -12555,9 +12555,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hound@workspace:packages/design":
+"hound@workspace:packages/hound":
   version: 0.0.0-use.local
-  resolution: "hound@workspace:packages/design"
+  resolution: "hound@workspace:packages/hound"
   dependencies:
     "@babel/plugin-transform-runtime": "npm:^7.26.10"
     "@babel/preset-env": "npm:^7.26.9"

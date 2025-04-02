@@ -17,14 +17,12 @@
     "strict": true,
     "target": "ES2022",
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["*"]
-    },
     "jsx": "react-jsx",
     "paths": {
       //* @staq/design paths
       "@mable/hound": ["packages/hound/src/index.ts"],
       "@mable/hound/*": ["packages/hound/src/*"],
+      "@/*" : ["packages/hound/src/*"],
   }
   }
 }
