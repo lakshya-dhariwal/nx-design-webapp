@@ -37,7 +37,6 @@ export { TabsTriggerV2, TabsContentV2, TabsListV2, TabsV2, TabsContextProviderV2
 export { TabsTrigger, TabsContent, TabsList, Tabs, TabsContextProvider } from './Molecules/Tab';
 export { default as CompanyBadge } from './custom/CompanyBadge';
 export { DashboardSidebar, DashboardSidebarItem, DashboardSidebarMenu } from './custom/DashboardSidebar';
-export { presetsToDateRange, DatePicker } from './custom/DatePicker';
 export { SetupSidebar, SetupSidebarItem, SetupSidebarMenu } from './custom/SetupSideBar';
 export { default as ShopPicker } from './custom/ShopPicker';
 export { default as avatar } from './custom/avatar';

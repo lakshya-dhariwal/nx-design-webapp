@@ -1,7 +1,6 @@
 import * as React from "react";
 import { tv } from "tailwind-variants";
 import { IoWarning } from "react-icons/io5";
-import { motion } from "framer-motion";
 import LoadingDots from "@/components/Loaders/LoadingDots";
 
 export interface ChatMessageProps {

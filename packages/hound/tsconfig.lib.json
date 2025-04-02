@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "outDir": "../../dist/out-tsc",
@@ -8,12 +8,12 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
     ],
-    "paths": {
+    // "paths": {
 
-      "@/*": [
-        "./src/*"
-      ],
-    }
+    //   "@/*": [
+    //     "./src/*"
+    //   ],
+    // }
   },
   "exclude": [
     "jest.config.ts",
@@ -34,6 +34,13 @@
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "src/index.ts",
+    "src/components/**/*.ts",
+    "src/components/**/*.tsx",
+    "src/components/Atoms/**/*.tsx",
+    "src/components/Molecules/**/*.tsx",
+    "src/components/custom/**/*.tsx",
+    "src/components/Loaders/**/*.tsx",
   ]
 }
