@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Linting code
+pnpm exec lint-staged
+if [ $? -ne 0 ]; then
+  echo "❌ Code linting failed! Let's fix those errors before committing."
+  exit 1
+else
+  echo "✅ Code linting passed! Your code is pristine. ✨"
+fi
+
+# Building the project
+pnpm run build
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed! Something went wrong during the build process."
+  exit 1
+else
+  echo "✅ Build successful! Your project is ready to rock. 🚀"
+fi
+
+# Adding changes to git
+git add .
+if [ $? -ne 0 ]; then
+  echo "❌ Failed to stage changes! Let's try again."
+  exit 1
+else
+  echo "✅ Changes staged successfully! Ready to commit. 📝"
+fi
+
+echo "🎉 Pre-commit checks passed! Time to save your work. Happy coding! 👨‍💻👩‍💻"

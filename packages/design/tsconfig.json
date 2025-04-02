@@ -1,6 +1,23 @@
 {
-  "files": [],
-  "include": [],
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true,
+    "jsx": "react-jsx",
+    "types": ["node"],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "dist",
+    "**/*.test.*",
+    "**/*.stories.*",
+    "**/*.spec.*"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"
@@ -8,6 +25,5 @@
     {
       "path": "./tsconfig.storybook.json"
     }
-  ],
-  "extends": "../tsconfig.base.json"
+  ]
 }

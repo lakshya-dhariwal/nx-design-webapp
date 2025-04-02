@@ -1,0 +1,252 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Hound - Color System" />
+
+export const colorCategories = {
+  primary: {
+    title: "Primary Colors",
+    shades: {
+      50: "bg-primary-50",
+      100: "bg-primary-100",
+      200: "bg-primary-200",
+      300: "bg-primary-300",
+      400: "bg-primary-400",
+      500: "bg-primary-500",
+      600: "bg-primary-600",
+      700: "bg-primary-700",
+      800: "bg-primary-800",
+      900: "bg-primary-900",
+      950: "bg-primary-950"
+    }
+  },
+  neonBlue: {
+    title: "Neon Blue",
+    shades: {
+      50: "bg-neonBlue-50",
+      100: "bg-neonBlue-100",
+      200: "bg-neonBlue-200",
+      300: "bg-neonBlue-300",
+      400: "bg-neonBlue-400",
+      500: "bg-neonBlue-500",
+      600: "bg-neonBlue-600",
+      700: "bg-neonBlue-700",
+      800: "bg-neonBlue-800",
+      900: "bg-neonBlue-900",
+      950: "bg-neonBlue-950"
+    }
+  },
+  success: {
+    title: "Success Colors",
+    shades: {
+      50: "bg-success-50",
+      100: "bg-success-100",
+      200: "bg-success-200",
+      300: "bg-success-300",
+      400: "bg-success-400",
+      500: "bg-success-500",
+      600: "bg-success-600",
+      700: "bg-success-700",
+      800: "bg-success-800",
+      900: "bg-success-900",
+      950: "bg-success-950"
+    }
+  },
+  warning: {
+    title: "Warning Colors",
+    shades: {
+      50: "bg-warning-50",
+      100: "bg-warning-100",
+      200: "bg-warning-200",
+      300: "bg-warning-300",
+      400: "bg-warning-400",
+      500: "bg-warning-500",
+      600: "bg-warning-600",
+      700: "bg-warning-700",
+      800: "bg-warning-800",
+      900: "bg-warning-900",
+      950: "bg-warning-950"
+    }
+  },
+  error: {
+    title: "Error Colors",
+    shades: {
+      50: "bg-error-50",
+      100: "bg-error-100",
+      200: "bg-error-200",
+      300: "bg-error-300",
+      400: "bg-error-400",
+      500: "bg-error-500",
+      600: "bg-error-600",
+      700: "bg-error-700",
+      800: "bg-error-800",
+      900: "bg-error-900",
+      950: "bg-error-950"
+    }
+  },
+  info: {
+    title: "Info Colors",
+    shades: {
+      50: "bg-info-50",
+      100: "bg-info-100",
+      200: "bg-info-200",
+      300: "bg-info-300",
+      400: "bg-info-400",
+      500: "bg-info-500",
+      600: "bg-info-600",
+      700: "bg-info-700",
+      800: "bg-info-800",
+      900: "bg-info-900",
+      950: "bg-info-950"
+    }
+  },
+  neutral: {
+    title: "Neutral Colors",
+    shades: {
+      white: "bg-neutral-white",
+      100: "bg-neutral-100",
+      200: "bg-neutral-200",
+      300: "bg-neutral-300",
+      400: "bg-neutral-400",
+      500: "bg-neutral-500",
+      600: "bg-neutral-600",
+      700: "bg-neutral-700",
+      800: "bg-neutral-800",
+      900: "bg-neutral-900",
+      black: "bg-neutral-black"
+    }
+  }
+};
+
+export const platformColors = {
+  title: "Platform Colors",
+  colors: {
+    Meta: "bg-meta",
+    "Google Ads": "bg-googleAds",
+    TikTok: "bg-tiktok",
+    Pinterest: "bg-pinterest",
+    Email: "bg-email",
+    Influencer: "bg-influencer",
+    SEO: "bg-seo",
+    Direct: "bg-direct"
+  }
+};
+
+export const utilityColors = {
+  title: "Utility Colors",
+  colors: {
+    "Non Users": "bg-nonUsers",
+    Tooltip: "bg-tooltip",
+    Stroke: "bg-stroke",
+    "Graph Yellow": "bg-graphYellow"
+  }
+};
+
+<div className="max-w-7xl mx-auto bg-white p-8 space-y-12">
+  <div className="text-xl font-semibold text-slate-800 pb-4 border-b">Hound Color System</div>
+
+  {Object.entries(colorCategories).map(([key, category]) => (
+    <div key={key}>
+      <div className="font-medium text-base text-slate-700 mb-4">{category.title}</div>
+      <div className="grid grid-cols-11 gap-1">
+        {Object.entries(category.shades).map(([shade, bgClass]) => (
+          <div key={shade} className="text-center">
+            <div className={`aspect-square rounded-md ${bgClass} ${shade === 'white' ? 'border border-slate-200' : ''} shadow-sm mb-2`} />
+            <div className="text-[11px] font-medium text-slate-600">{shade}</div>
+            <div className="text-[11px] font-mono text-slate-500 hover:text-slate-800 cursor-pointer transition-colors select-all">{
+              {
+                'primary': {
+                  50: "#f2f9fd", 100: "#e4f2fa", 200: "#c3e5f4", 300: "#8ed1eb",
+                  400: "#4fb7dd", 500: "#2ca0cb", 600: "#1d81ac", 700: "#19688b",
+                  800: "#185874", 900: "#194961", 950: "#112f40"
+                },
+                'neonBlue': {
+                  50: "#EFFEFD", 100: "#C8FFFA", 200: "#91FEF7", 300: "#53F5F0",
+                  400: "#1DDCDC", 500: "#07C2C5", 600: "#02999F", 700: "#07787E",
+                  800: "#0B5F64", 900: "#0E4F53", 950: "#012D32"
+                },
+                'success': {
+                  50: "#f2feef", 100: "#dfffd9", 200: "#c1fdb5", 300: "#8ff97c",
+                  400: "#55ec3c", 500: "#2dd512", 600: "#22bc09", 700: "#1d8a0b",
+                  800: "#1a6d0e", 900: "#16590e", 950: "#063201"
+                },
+                'warning': {
+                  50: "#fef8ec", 100: "#fceac9", 200: "#f9d48e", 300: "#f6b853",
+                  400: "#f49e2b", 500: "#e47611", 600: "#d25a0d", 700: "#ae3c0f",
+                  800: "#8e2e12", 900: "#752712", 950: "#431205"
+                },
+                'error': {
+          50: "#fef2f2",
+          100: "#fee6e5",
+          200: "#fccfcf",
+          300: "#f9a8a8",
+          400: "#f57779",
+          500: "#ec474f",
+          600: "#dc3545",
+          700: "#b7192c",
+          800: "#99182c",
+          900: "#83182c",
+          950: "#490812",
+        },
+                'info': {
+                  50: "#f2f7fd", 100: "#e5edf9", 200: "#c4daf3", 300: "#90bbe9",
+                  400: "#5599db", 500: "#3b86d1", 600: "#2061a9", 700: "#1b4d89",
+                  800: "#1a4272", 900: "#1b395f", 950: "#12243f"
+                },
+                'neutral': {
+                  white: "#ffffff", 100: "#efefef", 200: "#dcdcdc", 300: "#bdbdbd",
+                  400: "#989898", 500: "#7c7c7c", 600: "#656565", 700: "#525252",
+                  800: "#464646", 900: "#3d3d3d", black: "#202020"
+                }
+              }[key][shade]
+            }</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+
+  <div>
+    <div className="font-medium text-base text-slate-700 mb-4">{platformColors.title}</div>
+    <div className="grid grid-cols-8 gap-4">
+      {Object.entries(platformColors.colors).map(([platform, bgClass]) => (
+        <div key={platform} className="text-center">
+          <div className={`aspect-square rounded-md ${bgClass} shadow-sm mb-2`} />
+          <div className="text-[11px] font-medium text-slate-600">{platform}</div>
+          <div className="text-[11px] font-mono text-slate-500 hover:text-slate-800 cursor-pointer transition-colors select-all">{
+            {
+              'Meta': "#185BBF",
+              'Google Ads': "#F4B400",
+              'TikTok': "#000000",
+              'Pinterest': "#C8455D",
+              'Email': "#c3e5f4",
+              'Influencer': "#8ed1eb",
+              'SEO': "#4fb7dd",
+              'Direct': "#2ca0cb"
+            }[platform]
+          }</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div>
+    <div className="font-medium text-base text-slate-700 mb-4">{utilityColors.title}</div>
+    <div className="grid grid-cols-8 gap-4">
+      {Object.entries(utilityColors.colors).map(([name, bgClass]) => (
+        <div key={name} className="text-center">
+          <div className={`aspect-square rounded-md ${bgClass} shadow-sm mb-2`} />
+          <div className="text-[11px] font-medium text-slate-600">{name}</div>
+          <div className="text-[11px] font-mono text-slate-500 hover:text-slate-800 cursor-pointer transition-colors select-all">{
+            {
+              'Non Users': "#0B131F",
+              'Tooltip': "#0B131F",
+              'Stroke': "#ffff66",
+              'Graph Yellow': "#E9AD13"
+            }[name]
+          }</div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</div>

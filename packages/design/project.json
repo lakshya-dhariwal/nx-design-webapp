@@ -6,11 +6,25 @@
     "tags": ["scope:shared", "type:ui"],
     "targets": {
       "build": {
-        "executor": "@nx/vite:build",
+        "executor": "@nx/rollup:rollup",
         "outputs": ["{workspaceRoot}/dist/packages/design"],
         "options": {
-          "config": "packages/design/vite.config.ts"
+          "config": "packages/design/rollup.config.cjs",
+          "main": "packages/design/src/index.ts",
+          "outputPath": "dist/packages/design",
+          "tsConfig": "packages/design/tsconfig.lib.json",
+          "compiler": "babel",
+          "external": ["react", "react-dom", "react/jsx-runtime"],
+          "format": ["esm"],
+          "assets": [
+            {
+              "input": "packages/design",
+              "glob": "README.md",
+              "output": "."
+            }
+          ]
         }
       }
     }
   }
+  

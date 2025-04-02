@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+@import "react-date-range/dist/styles.css";
+@import "react-date-range/dist/theme/default.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+@layer base {
+  .heading-1 {
+    font-family: "DM Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  .body-1 {
+    /* Body 1 */
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  .body-2 {
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+  }
+
+  .body-3 {
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  .body-4 {
+    font-family: "DM Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+  }
+
+  .body-5 {
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  .body-6 {
+    font-family: "DM Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 120%;
+  }
+
+  .caption {
+    font-family: "DM Sans";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    /* 12px */
+    text-transform: uppercase;
+  }
+
+  .dm-sans-100 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  .dm-sans-200 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+  }
+
+  .dm-sans-300 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  .dm-sans-400 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .dm-sans-500 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .dm-sans-600 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  .dm-sans-700 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .dm-sans-800 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  .dm-sans-900 {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+  }
+}
+
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.rdrCalendarWrapper {
+  background: transparent;
+  width: 95%;
+  margin: auto;
+}
+
+.rdrMonths {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.rdrDateDisplayWrapper {
+  background: transparent;
+}
+
+.rdrDateDisplay {
+  margin: 0;
+  height: 2.5rem;
+}
+
+.rdrDateInput {
+  border-radius: 5px;
+  height: 3.5em;
+  background: transparent;
+  position: relative;
+}
+
+.rdrDateInput:nth-child(1)::after {
+  position: absolute;
+  content: 'Start Date ';
+  top: 2px;
+  left: 0;
+  padding: 0.01rem 0.5rem;
+  font-size: 0.7rem;
+  color: #ffffff5e;
+}
+
+.rdrDateInput:nth-child(2)::after {
+  position: absolute;
+  content: 'End Date ';
+  top: 2px;
+  left: 0;
+  padding: 0.01rem 0.5rem;
+  font-size: 0.7rem;
+  color: #ffffff5e;
+}
+
+.rdrDateInput>input {
+  height: 100%;
+  font-size: 0.85rem;
+  text-align: left;
+  padding: 10px 10px 0 10px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.rdrDateDisplayItem {
+  border: 1.5px #ffffff36 solid;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+.rdrDateDisplayItemActive {
+  border: 1.5px #4fb7dd solid;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+.rdrMonths {
+  background: #0b131f94;
+  border-radius: 12px;
+}
+
+.rdrMonthName {
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  color: #ffffff;
+}
+
+.rdrWeekDay {
+  color: #4fb7dd;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.rdrDay .rdrDayNumber span {
+  color: #7f8ca0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.rdrDayPassive .rdrDayNumber span {
+  color: #7f8ca060;
+}
+
+.rdrStartEdge {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+  background: #4fb7dd !important;
+}
+
+.rdrEndEdge {
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+  background: #4fb7dd !important;
+}
+
+.rdrInRange,
+.rdrDayInPreview {
+  background-color: #7f8ca020 !important;
+}
+
+
+.rdrDayStartPreview {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+}
+
+.rdrDayEndPreview {
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+.rdrDayDisabled {
+  display: none;
+}
+
+.rdrMonthAndYearPickers span select {
+  color: #ffffff;
+  font-size: 0.75rem;
+  appearance: button;
+  -webkit-appearance: button;
+}
+
+.rdrMonthAndYearPickers option {
+  color: #111111;
+}
+
+.rdrMonthAndYearWrapper {
+  padding: 0 30px !important;
+}
+
+.rdrNextPrevButton {
+  background: transparent;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rdrNextPrevButton:hover {
+  background: hsla(0, 0%, 100%, 0.214);
+}
+
+.rdrPprevButton i {
+  border-width: 8px 12px 8px 8px !important;
+  border-color: transparent #ffffff5e transparent transparent !important;
+}
+
+.rdrNextButton i {
+  border-width: 8px 8px 8px 12px !important;
+  border-color: transparent transparent transparent #ffffff5e !important;
+}
