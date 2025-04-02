@@ -1,7 +1,7 @@
 import Line from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
+const meta : Meta<typeof Line>= {
   title: "Atoms/Misc/Line",
   component: Line,
   tags: ["autodocs"],

@@ -78,7 +78,7 @@ const Example = () => {
       control: "boolean",
       description: "Show tooltips below thumbs",
       table: {
-        defaultValue: { summary: false },
+        defaultValue: { summary: '' },
       },
     },
     customTooltip: {
@@ -98,21 +98,21 @@ const Example = () => {
       control: "number",
       description: "Minimum value",
       table: {
-        defaultValue: { summary: 0 },
+        defaultValue: { summary: "0" },
       },
     },
     max: {
       control: "number",
       description: "Maximum value",
       table: {
-        defaultValue: { summary: 100 },
+        defaultValue: { summary: "100" },
       },
     },
     step: {
       control: "number",
       description: "Step increment",
       table: {
-        defaultValue: { summary: 1 },
+        defaultValue: { summary: "1" },
       },
     },
     color: {
@@ -151,7 +151,7 @@ const Example = () => {
       if: { arg: "variant", eq: "multi" },
       description: "Minimum steps between thumbs",
       table: {
-        defaultValue: { summary: 1 },
+        defaultValue: { summary: "1" },
       },
     },
   },

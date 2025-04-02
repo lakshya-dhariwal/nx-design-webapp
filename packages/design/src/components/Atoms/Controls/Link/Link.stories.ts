@@ -1,7 +1,7 @@
 import Link from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
+const meta: Meta<typeof Link> = {
   title: "Atoms/Control/Link",
   tags: ["autodocs"],
   parameters: {

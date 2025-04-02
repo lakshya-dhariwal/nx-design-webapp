@@ -1,8 +1,8 @@
 import { AiFillAmazonCircle } from "react-icons/ai";
 import ChannelSelector from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
+const meta: Meta<typeof ChannelSelector> = {
   title: "Molecules/Channel",
   component: ChannelSelector,
   tags: ["autodocs"],
@@ -68,6 +68,7 @@ export const Default: Story = {
       key: "menu3",
       icon: <AiFillAmazonCircle />,
     },
+        //@ts-ignore
     onChange: (item) => alert(JSON.stringify(item)),
     menuList: [
       { label: "Menu 1", key: "menu1", icon: <AiFillAmazonCircle /> },

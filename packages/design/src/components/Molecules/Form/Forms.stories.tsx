@@ -1,9 +1,9 @@
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import Form from "./index";
 import Input from "@/components/Atoms/Controls/Input";
 import Button from "@/components/Atoms/Controls/Button";
 
-const meta = {
+const meta: Meta<typeof Form>  = {
   title: "Molecules/Form",
   component: Form,
   tags: ["autodocs"],

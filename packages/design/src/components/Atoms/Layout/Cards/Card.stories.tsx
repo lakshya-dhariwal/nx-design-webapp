@@ -1,11 +1,11 @@
 import Button from "../../Controls/Button";
 import Card from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { FaMeta } from "react-icons/fa6";
 import { CiFilter } from "react-icons/ci";
 import { useState } from "react";
 
-const meta = {
+const meta : Meta<typeof Card> = {
   title: "Atoms/Layout/Card",
   tags: ["autodocs"],
   component: Card,

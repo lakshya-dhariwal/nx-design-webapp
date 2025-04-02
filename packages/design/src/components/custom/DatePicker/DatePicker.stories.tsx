@@ -2,7 +2,7 @@ import type { Meta } from "@storybook/react";
 import { DatePickerPresets, DatePicker } from "./index";
 import { useState } from "react";
 
-const meta = {
+const meta : Meta<typeof DatePicker> = {
   title: "Custom/DatePicker",
   component: DatePicker,
   parameters: {
@@ -338,6 +338,7 @@ const DefaultDatePicker = () => {
         startDate={dateRange[0]}
         endDate={dateRange[1]}
         onChange={handleDateChange}
+        //@ts-ignore
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         selectedPreset={preset}

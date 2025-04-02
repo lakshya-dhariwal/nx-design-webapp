@@ -1,39 +1,44 @@
-import typescript from 'rollup-plugin-typescript2';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import mdx from '@mdx-js/rollup';
-import svg from '@svgr/rollup';
-import url from '@rollup/plugin-url';
+import typescript from '@rollup/plugin-typescript';
+import dts from 'rollup-plugin-dts';
+import postcss from 'rollup-plugin-postcss';
 import generateIndex from './generateIndex.plugin.js';
-import json from '@rollup/plugin-json';
 
-export default {
-  input: './src/index.ts',
-  output: {
-    dir: 'dist',
-    format: 'esm',
-    preserveModules: true,
-    preserveModulesRoot: 'src',
+
+export default [
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        file: 'dist/index.esm.js',
+        format: 'esm',
+        sourcemap: true,
+      },
+      {
+        file: 'dist/index.cjs.js',
+        format: 'cjs',
+        sourcemap: true,
+      }
+    ],
+    plugins: [
+      generateIndex(),
+      peerDepsExternal(),
+      resolve(),
+      commonjs(),
+      postcss(), // supports CSS Modules
+      typescript({
+        tsconfig: './tsconfig.lib.json',
+        declaration: true,
+        declarationDir: 'dist/types',
+        emitDeclarationOnly: false,
+      }),
+    ]
   },
-  external: ['react', 'react-dom', 'react/jsx-runtime'],
-  plugins: [
-    generateIndex(),
-    resolve({
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
-    }),
-    commonjs(),
-    typescript({
-      tsconfig: './tsconfig.json',
-    }),
-    json(),
-    mdx(),
-    svg({
-      svgo: false,
-      titleProp: true,
-      ref: true,
-    }),
-    url({
-      limit: 10000,
-    }),
-  ],
-};
+  {
+    input: 'dist/types/index.d.ts',
+    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    plugins: [dts()],
+  }
+];

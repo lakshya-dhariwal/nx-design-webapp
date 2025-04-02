@@ -1,4 +1,4 @@
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Tabs, TabsTrigger, TabsContent, TabsList } from "./index";
 import { FaChartPie } from "react-icons/fa";
 import { FaTable } from "react-icons/fa";
@@ -81,7 +81,7 @@ const TabsStory = ({
   }
 };
 
-const meta = {
+const meta: Meta<typeof TabsStory> = {
   title: "Molecules/Tabs",
   component: TabsStory,
   tags: ["autodocs"],

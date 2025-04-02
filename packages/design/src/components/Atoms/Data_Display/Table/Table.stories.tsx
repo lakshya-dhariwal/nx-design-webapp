@@ -1,7 +1,7 @@
-import { StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { TableComponent } from "./index";
 
-const meta = {
+const meta: Meta<typeof TableComponent> = {
   title: "Atoms/Data-Display/Table",
   component: TableComponent,
   tags: ["autodocs"],

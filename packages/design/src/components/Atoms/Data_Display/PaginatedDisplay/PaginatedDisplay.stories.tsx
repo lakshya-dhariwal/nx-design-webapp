@@ -1,7 +1,7 @@
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import PaginatedDisplay from "./index";
 
-const meta = {
+const meta : Meta<typeof PaginatedDisplay> = {
   title: "Atoms/Data-Display/PaginatedDisplay",
   component: PaginatedDisplay,
   tags: ["autodocs"],

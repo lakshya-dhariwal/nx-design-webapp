@@ -1,7 +1,7 @@
 import DropdownMenu from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
+const meta : Meta<typeof DropdownMenu> = {
   title: "Molecules/Dropdown",
   component: DropdownMenu,
   tags: ["autodocs"],
@@ -18,6 +18,7 @@ export const Default: Story = {
   args: {
     children: "Dropdown",
     className: " w-1/2",
+    //@ts-ignore
     onChange: (item) => alert(JSON.stringify(item)),
     menuList: [
       { label: "Menu 1", key: "menu1" },
@@ -37,6 +38,7 @@ export const DropdownSm: Story = {
   args: {
     size: "sm",
     children: "Dropdown",
+        //@ts-ignore
     onChange: (item) => alert(JSON.stringify(item)),
     className: "w-1/4",
     menuList: [

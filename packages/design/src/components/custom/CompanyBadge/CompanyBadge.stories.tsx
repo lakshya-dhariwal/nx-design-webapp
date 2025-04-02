@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { FaUser } from "react-icons/fa";
 
 // Correct meta type definition
-const meta = {
+const meta: Meta<typeof CompanyBadge> = {
   title: "Custom/CompanyBadge",
   component: CompanyBadge,
   tags: ["autodocs"],

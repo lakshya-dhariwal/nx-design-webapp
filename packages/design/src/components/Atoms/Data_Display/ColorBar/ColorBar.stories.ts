@@ -1,7 +1,7 @@
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import ColorBar from "./index";
 
-const meta = {
+const meta : Meta<typeof ColorBar>= {
   title: "Atoms/Data-Display/ColorBar",
   component: ColorBar,
   tags: ["autodocs"],

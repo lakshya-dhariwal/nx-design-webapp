@@ -1,8 +1,9 @@
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { BulletSlider } from "./index";
 
-const meta = {
+const meta : Meta<typeof BulletSlider> = {
   title: "Atoms/Control/BulletSlider",
+  //@ts-ignore
   name: "Bullet Slider",
   component: BulletSlider,
   tags: ["autodocs"],
@@ -106,6 +107,7 @@ const returnWindowSteps = [
 export const Default: Story = {
   args: {
     linePassed: true,
+      //@ts-ignore
     onChange: (step) => console.log("Step changed:", step),
     steps: defaultSteps,
     size: "md",
@@ -147,6 +149,7 @@ export const WithCustomInput: Story = {
     linePassed: false,
     showCustomInput: true,
     customInputPlaceholder: "Custom value",
+      //@ts-ignore
     onChange: (step, customValue) =>
       console.log("Step: " + step + " Custom value: " + customValue),
   },

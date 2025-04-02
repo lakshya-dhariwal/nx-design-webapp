@@ -1,7 +1,7 @@
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import RadioComponent from "./index";
 
-const meta = {
+const meta : Meta<typeof RadioComponent>= {
   title: "Atoms/Control/RadioItem",
   component: RadioComponent,
   tags: ["autodocs"],

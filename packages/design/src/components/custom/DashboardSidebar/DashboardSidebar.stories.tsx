@@ -2,12 +2,12 @@ import { FaHome } from "react-icons/fa";
 import { DashboardSidebarItem } from "./DashboardSidebarItem";
 import { DashboardSidebarMenu } from "./DashboardSidebarMenu";
 import { DashboardSidebar } from "./DashboardSidebar";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { SidebarItem as SidebarItemType } from "@/types";
 import { Button } from "@/components";
 import { useState } from "react";
 
-const meta = {
+const meta: Meta<typeof DashboardSidebar> = {
   title: "Custom/DashboardSidebar",
   component: DashboardSidebar,
   tags: ["autodocs"],

@@ -2,12 +2,12 @@ import { SetupSidebar } from "./SetupSideBar";
 import { SetupSidebarItem } from "./SetupSideBarItem";
 import { SetupSidebarMenu } from "./SetupSideBarMenu";
 
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { SidebarItem as SidebarItemType } from "@/types";
 import Line from "@/components/Atoms/Misc/Line";
 import Button from "@/components/Atoms/Controls/Button";
 
-const meta = {
+const meta : Meta<typeof SetupSidebar> = {
   title: "Custom/SetupSidebar",
   component: SetupSidebar,
   tags: ["autodocs"],

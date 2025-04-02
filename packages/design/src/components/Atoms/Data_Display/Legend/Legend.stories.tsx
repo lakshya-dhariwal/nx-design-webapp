@@ -1,7 +1,7 @@
 import type { Meta } from "@storybook/react";
 import Legend from "./index";
 
-const meta = {
+const meta : Meta<typeof Legend> = {
   title: "Atoms/Data-Display/Legend",
   component: Legend,
   parameters: {

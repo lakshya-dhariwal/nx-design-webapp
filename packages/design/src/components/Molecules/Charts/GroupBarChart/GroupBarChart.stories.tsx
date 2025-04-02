@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import GroupBarChart from "./index";
 import { TooltipProps } from "recharts";
 
-const meta = {
+const meta : Meta<typeof GroupBarChart> = {
   title: "Molecules/Charts/GroupBarChart",
   component: GroupBarChart,
   parameters: {

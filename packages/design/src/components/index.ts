@@ -19,7 +19,6 @@ export { default as Badge } from './Atoms/Misc/Badge';
 export { default as Line } from './Atoms/Misc/Line';
 export { Tooltip } from './Atoms/Misc/Tooltip';
 export { default as Skeleton } from './Atoms/Skeleton';
-export { default as LoadingDots } from './Loaders/LoadingDots';
 export { default as Spinner } from './Loaders/Spinner';
 export { default as ChannelSelector } from './Molecules/ChannelSelector';
 export { default as GroupBarChart } from './Molecules/Charts/GroupBarChart';

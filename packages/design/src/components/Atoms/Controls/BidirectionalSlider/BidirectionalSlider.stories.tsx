@@ -1,8 +1,8 @@
 import type { Meta } from "@storybook/react";
 import { BidirectionalSlider } from "./index";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const meta = {
+const meta: Meta<typeof BidirectionalSlider> = {
   title: "Atoms/Control/Slider/Bidirectional Slider",
   component: BidirectionalSlider,
   tags: ["autodocs"],

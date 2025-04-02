@@ -1,7 +1,7 @@
 import ShopPicker from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
+const meta: Meta<typeof ShopPicker> = {
   title: "Custom/ShopPicker",
   component: ShopPicker,
   tags: ["autodocs"],
@@ -98,22 +98,22 @@ const generateSampleShops = (count: number): Shop[] => {
     subShops:
       Math.random() > 0.7
         ? [
-            // 30% chance of having subshops
-            {
-              name: `${name} Annex`,
-              isActive: Math.random() > 0.2,
-              type: ["shopify", "shopware5", "shopware6"][
-                Math.floor(Math.random() * 3)
-              ] as Shop["type"],
-            },
-            {
-              name: `${name} Express`,
-              isActive: Math.random() > 0.2,
-              type: ["shopify", "shopware5", "shopware6"][
-                Math.floor(Math.random() * 3)
-              ] as Shop["type"],
-            },
-          ]
+          // 30% chance of having subshops
+          {
+            name: `${name} Annex`,
+            isActive: Math.random() > 0.2,
+            type: ["shopify", "shopware5", "shopware6"][
+              Math.floor(Math.random() * 3)
+            ] as Shop["type"],
+          },
+          {
+            name: `${name} Express`,
+            isActive: Math.random() > 0.2,
+            type: ["shopify", "shopware5", "shopware6"][
+              Math.floor(Math.random() * 3)
+            ] as Shop["type"],
+          },
+        ]
         : undefined,
   }));
 };
@@ -121,11 +121,14 @@ const generateSampleShops = (count: number): Shop[] => {
 export const Default: Story = {
   args: {
     className: "min-w-[400px] max-w-[35%]",
+    //@ts-ignore
     activeShop: { name: "Main Shop", isActive: true, type: "shopify" },
+    //@ts-ignore
     onChange: (item, event) => {
       alert(JSON.stringify(item));
       console.log(event);
     },
+    //@ts-ignore
     shopList: generateSampleShops(50),
   },
 };

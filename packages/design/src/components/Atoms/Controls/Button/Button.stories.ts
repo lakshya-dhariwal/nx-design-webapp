@@ -1,7 +1,7 @@
 import Button from "./index";
-import type { StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-const meta = {
+const meta : Meta<typeof Button> = {
   title: "Atoms/Control/Buttons",
   tags: ["autodocs"],
   parameters: {
