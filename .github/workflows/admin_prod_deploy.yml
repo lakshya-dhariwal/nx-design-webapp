@@ -1,0 +1,110 @@
+name: Admin - Build and Deploy prod environment (auto-triggered)
+
+on:
+    release:
+        types: [published]
+
+env:
+    AWS_REGION: ap-south-1
+    ECR_REPOSITORY: staq-admin
+    ECS_CLUSTER: tf-gpt1-cluster
+
+jobs:
+    deploy:
+        name: Build and Deploy image
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [18.18.2]
+        # environment: production
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Use Node.js ${{matrix.node-version}}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{matrix.node-version}}
+
+            - name: Setup yarn
+              run: npm install -g yarn
+
+            - name: Initialize env variables
+              run: |
+                  export BRANCH=prod
+                  export AWS_REGION=${{ env.AWS_REGION }}
+                  export ECR_REPOSITORY=${{ env.ECR_REPOSITORY }}
+                  export ECS_CLUSTER=${{ env.ECS_CLUSTER }}
+                  echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+                  echo "AWS_REGION=$AWS_REGION" >> $GITHUB_ENV
+                  echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> $GITHUB_ENV
+                  echo "ECS_CLUSTER=$ECS_CLUSTER" >> $GITHUB_ENV
+
+            - name: Set ECS Service
+              run: |
+                  echo "ECS_SERVICE=tf-admin-$BRANCH-$BRANCH" | sed -r "s/[\/\.]/-/g" >> $GITHUB_ENV
+
+            - name: Verify env variables
+              run: |
+                  echo "BRANCH: $BRANCH"
+                  echo "AWS_REGION: ${{env.AWS_REGION}}"
+                  echo "ECR_REPOSITORY: ${{env.ECR_REPOSITORY}}"
+                  echo "ECS_CLUSTER: ${{env.ECS_CLUSTER}}"
+                  echo "ECS_SERVICE: ${{env.ECS_SERVICE}}"
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ env.AWS_REGION }}
+
+            - name: Login to Amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
+
+            - name: Restore caches
+              id: cache-build-data-restore
+              uses: actions/cache/restore@v4
+              with:
+                  path: |
+                      **/node_modules
+                      **/dist
+                  key: build-data
+
+            - name: Yarn install and build
+              run: |
+                  yarn install
+                  echo setup .env file
+                  aws ssm get-parameters-by-path --path /staq/staq-ui/admin/${{env.BRANCH}} --recursive --query "Parameters[*].[Name,Value]" --output text | awk '{n=split($1,a,"/"); print toupper(a[n])"="$2}' > .env
+                  sed  -i 's/ /\n/g' .env
+                  echo "Printing .env:"
+                  cat .env
+                  yarn nx run-many --target=build --all=true
+
+            - name: Save build data caches
+              id: cache-build-data-save
+              uses: actions/cache/save@v4
+              with:
+                  path: |
+                      **/node_modules
+                      **/dist
+                  key: ${{steps.cache-build-data-restore.outputs.cache-primary-key}}
+
+            - name: Build, tag, and push image to Amazon ECR
+              id: build-image
+              env:
+                  BRANCH: ${{ env.BRANCH }}
+                  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+              run: |
+                  echo "Running Build for admin"
+                  docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH --build-arg="project=admin"  .
+                  echo "Docker image build. Pushing to ECR ..."
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$BRANCH
+                  echo "Docker image pushed"
+
+            - name: Force new deployment
+              run: |
+                  aws ecs update-service --region $AWS_REGION --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment

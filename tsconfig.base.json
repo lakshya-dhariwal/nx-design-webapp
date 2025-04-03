@@ -1,0 +1,30 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "esnext",
+        "module": "esnext",
+        "lib": ["es2020", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            //* @mable/design paths
+            "@mable/design": ["packages/design/src/index.ts"],
+            "@mable/design/server": ["packages/design/src/server.ts"],
+            "@mable/design/*": ["packages/design/src/*"],
+            //
+            //* @mable/service paths
+            "@mable/service": ["packages/service/src/index.ts"],
+            "@mable/service/server": ["packages/service/src/server.ts"],
+            "@mable/service/*": ["packages/service/src/*"],
+        }
+    },
+    "exclude": [".next", "node_modules", "tmp"]
+}

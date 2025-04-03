@@ -1,0 +1,87 @@
+name: Version Bump (on PR to master)
+
+on:
+    pull_request:
+        branches:
+            - master
+        types:
+            - opened
+            - synchronize
+            - edited
+
+jobs:
+    version_bump:
+        name: Create new version tag
+        permissions: write-all
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4
+
+            - name: Check for semver in PR message
+              id: check-semver
+              run: |
+                  pr_message="${{ github.event.pull_request.body }}"
+                  if [[ ! "$pr_message" =~ semver: ]]; then
+                    echo "No semver version specified in the PR message."
+                    exit 1
+                  fi
+
+            - name: Get latest tag
+              id: get-latest-tag
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  git fetch --prune --unshallow --tags
+                  last_commit=$(git rev-list --tags --max-count=1)
+                  latest_tag=$(git describe --tags $last_commit)
+                  echo "Latest tag: $latest_tag"
+                  echo "::set-output name=tag::${latest_tag#v}"
+
+            - name: Extract semver from PR message
+              id: extract-semver
+              run: |
+                  pr_message="${{ github.event.pull_request.body }}"
+                  semver=$(echo "$pr_message" | grep -Eo '\bsemver: (\w+)\b' | grep -oE '\w+$' | head -n 1)
+                  echo "Semver: $semver"
+                  echo "::set-output name=semver::$semver"
+
+            - name: Bump version
+              id: bump-version
+              run: |
+                  current_tag="${{ steps.get-latest-tag.outputs.tag }}"
+                  semver="${{ steps.extract-semver.outputs.semver }}"
+                  # install semver
+                  pip install semver
+                  new_tag=$(pysemver bump $semver $current_tag)
+                  new_tag="v$new_tag"
+                  echo "New tag: $new_tag"
+                  echo "::set-output name=new_tag::$new_tag"
+
+            - name: Create and push new tag
+              id: create-tag
+              run: |
+                  new_tag="${{ steps.bump-version.outputs.new_tag }}"
+                  git config user.name "github-agent"
+                  git config user.email "cto@insurstaq.com"
+                  git tag -a $new_tag -m "Created via PR #${{ github.event.pull_request.number }} from ${{ github.event.pull_request.user.login }}"
+                  git push origin $new_tag
+
+            - name: Create release task
+              id: create-release-task
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  new_tag="${{ steps.bump-version.outputs.new_tag }}"
+                  pr_author="${{ github.event.pull_request.user.login }}"
+                  echo "Creating release task for $pr_author for version $new_tag"
+                  task_body="Create release for version $new_tag"
+                  task_url=$(gh issue create --title "Release $new_tag" --body "$task_body" --assignee "$pr_author" --label "todo")
+                  echo "::set-output name=task_url::$task_url"
+
+            - name: Comment on PR
+              uses: allthatjazzleo/actions-pull-request-add-comment@master
+              with:
+                  message: "Version bumped to ${{ steps.bump-version.outputs.new_tag }}. Task created for release: ${{ steps.create-release-task.outputs.task_url }}."
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
