@@ -1,4 +1,3 @@
-
 import "@mable/design/styles/globals.css";
 import useChatWidget from "@mable/service/chat/chat.hook";
 import ChatWidget from "@mable/design/components/molecules/ChatWidget";
@@ -17,7 +16,7 @@ export default function Dashborad() {
             <h1 className="text-lg"> Campiagn Hero ☄️</h1>
 
             <h2></h2>
-            <div className="w-[300px] mx-auto">
+            <div className="mx-auto w-[300px]">
                 <ChatWidget
                     messages={messages}
                     isGenerating={isGenerating}

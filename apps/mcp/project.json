@@ -1,0 +1,28 @@
+{
+    "name": "mcp",
+    "sourceRoot": "apps/mcp/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nx/js:build",
+            "options": {
+                "outputPath": "dist/apps/mcp",
+                "tsConfig": "apps/mcp/tsconfig.app.json",
+                "main": "apps/mcp/src/main.ts",
+                "assets": []
+            }
+        },
+        "serve": {
+            "executor": "@nx/js:serve",
+            "options": {
+                "buildTarget": "mcp:build"
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "options": {
+                "lintFilePatterns": ["apps/mcp/**/*.ts", "apps/mcp/**/*.tsx"]
+            }
+        }
+    }
+}

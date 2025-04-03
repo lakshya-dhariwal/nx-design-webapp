@@ -23,7 +23,7 @@
             //* @mable/service paths
             "@mable/service": ["packages/service/src/index.ts"],
             "@mable/service/server": ["packages/service/src/server.ts"],
-            "@mable/service/*": ["packages/service/src/*"],
+            "@mable/service/*": ["packages/service/src/*"]
         }
     },
     "exclude": [".next", "node_modules", "tmp"]

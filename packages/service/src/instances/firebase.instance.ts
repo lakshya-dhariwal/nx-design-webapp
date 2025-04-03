@@ -9,8 +9,8 @@ const firebaseConfig = {
     storageBucket: "lattice-30c9e.firebasestorage.app",
     messagingSenderId: "895788951084",
     appId: "1:895788951084:web:5e55b337a475ad5dc59389",
-    measurementId: "G-741KS326FD"
-  };
+    measurementId: "G-741KS326FD",
+};
 
 let app: FirebaseApp;
 
@@ -23,7 +23,6 @@ const { aiFunctionTools } = useGemini();
 const geminiModel = getGenerativeModel(vertexAI, {
     model: "gemini-1.5-flash",
     tools: aiFunctionTools,
-
 });
 
 export { firebaseAPIKey, geminiModel };

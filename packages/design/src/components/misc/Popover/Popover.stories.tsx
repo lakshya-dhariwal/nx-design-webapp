@@ -4,14 +4,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "./index";
 import Button from "../../atoms/Controls/Button";
 
 const meta: Meta<typeof Popover> = {
-  title: "Atoms/Misc/Popover",
-  component: Popover,
-  parameters: {
-    componentSubtitle:
-      "Displays rich content in a portal, triggered by a button.",
-    docs: {
-      description: {
-        component: `
+    title: "Atoms/Misc/Popover",
+    component: Popover,
+    parameters: {
+        componentSubtitle:
+            "Displays rich content in a portal, triggered by a button.",
+        docs: {
+            description: {
+                component: `
 ### Overview
 A Popover displays floating content in relation to a trigger element. When the trigger is clicked, 
 the Popover appears with a smooth animation. Built on Radix UI primitives for accessibility.
@@ -105,105 +105,104 @@ export function MyComponent() {
 - Focus is returned to the trigger when closed
 - Role="dialog" is automatically applied
 `,
-      },
+            },
+        },
     },
-  },
-  tags: ["autodocs"],
-  argTypes: {
-    children: {
-      control: "text",
-      description: "The content of the popover",
+    tags: ["autodocs"],
+    argTypes: {
+        children: {
+            control: "text",
+            description: "The content of the popover",
+        },
     },
-  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Popover>;
 
 const PopoverDemo = () => (
-  <div className="flex items-center justify-center p-8">
-    <Popover>
-      <PopoverTrigger>
-        <Button>Open Popover</Button>
-      </PopoverTrigger>
-      <PopoverContent>
-        <div className="space-y-2">
-          <h3 className="font-medium">Popover Title</h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            This is a basic popover example.
-          </p>
-        </div>
-      </PopoverContent>
-    </Popover>
-  </div>
+    <div className="flex items-center justify-center p-8">
+        <Popover>
+            <PopoverTrigger>
+                <Button>Open Popover</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+                <div className="space-y-2">
+                    <h3 className="font-medium">Popover Title</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                        This is a basic popover example.
+                    </p>
+                </div>
+            </PopoverContent>
+        </Popover>
+    </div>
 );
 
 export const Default: Story = {
-  render: () => <PopoverDemo />,
-  parameters: {
-    docs: {
-      description: {
-        story: "A basic popover with a button trigger and simple content.",
-      },
+    render: () => <PopoverDemo />,
+    parameters: {
+        docs: {
+            description: {
+                story: "A basic popover with a button trigger and simple content.",
+            },
+        },
     },
-  },
 };
 
 export const WithCustomContent: Story = {
-  render: () => (
-    <div className="flex items-center justify-center p-8">
-      <Popover>
-        <PopoverTrigger>
-          <Button variant="outline">Settings</Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <h3 className="font-medium">Custom Content</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Popovers can contain any content, including forms, buttons, and
-                rich text.
-              </p>
-            </div>
-            <div className="flex justify-end">
-              <Button size="small">Save Changes</Button>
-            </div>
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "A popover with rich content including headings, text, and actions.",
-      },
+    render: () => (
+        <div className="flex items-center justify-center p-8">
+            <Popover>
+                <PopoverTrigger>
+                    <Button variant="outline">Settings</Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                    <div className="grid gap-4">
+                        <div className="space-y-2">
+                            <h3 className="font-medium">Custom Content</h3>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                Popovers can contain any content, including
+                                forms, buttons, and rich text.
+                            </p>
+                        </div>
+                        <div className="flex justify-end">
+                            <Button size="small">Save Changes</Button>
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+        </div>
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: "A popover with rich content including headings, text, and actions.",
+            },
+        },
     },
-  },
 };
 
 export const CustomPosition: Story = {
-  render: () => (
-    <div className="flex items-center justify-center p-8">
-      <Popover>
-        <PopoverTrigger>
-          <Button variant="outline">Custom Position</Button>
-        </PopoverTrigger>
-        <PopoverContent align="start" sideOffset={8}>
-          <p className="text-sm">
-            This popover is aligned to the start with a custom offset.
-          </p>
-        </PopoverContent>
-      </Popover>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Demonstrates custom positioning with alignment and offset options.",
-      },
+    render: () => (
+        <div className="flex items-center justify-center p-8">
+            <Popover>
+                <PopoverTrigger>
+                    <Button variant="outline">Custom Position</Button>
+                </PopoverTrigger>
+                <PopoverContent align="start" sideOffset={8}>
+                    <p className="text-sm">
+                        This popover is aligned to the start with a custom
+                        offset.
+                    </p>
+                </PopoverContent>
+            </Popover>
+        </div>
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: "Demonstrates custom positioning with alignment and offset options.",
+            },
+        },
     },
-  },
 };

@@ -2,91 +2,91 @@ import React, { useEffect, useState, useRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const bulletSlider = tv({
-  base: "flex flex-row justify-between relative w-full",
-  variants: {
-    size: {
-      sm: "",
-      md: "",
-      lg: "",
+    base: "flex flex-row justify-between relative w-full",
+    variants: {
+        size: {
+            sm: "",
+            md: "",
+            lg: "",
+        },
     },
-  },
-  defaultVariants: {
-    size: "md",
-  },
+    defaultVariants: {
+        size: "md",
+    },
 });
 
 const bullet = tv({
-  base: "rounded-full transition-all duration-200 ease-in-out relative cursor-pointer bg-[#8390A4]",
-  variants: {
-    active: {
-      true: "bg-white border-primary-400 border-[3px]",
-      false: " ",
+    base: "rounded-full transition-all duration-200 ease-in-out relative cursor-pointer bg-[#8390A4]",
+    variants: {
+        active: {
+            true: "bg-white border-primary-400 border-[3px]",
+            false: " ",
+        },
+        passed: {
+            true: " bg-primary-400",
+            false: "",
+        },
+        size: {
+            sm: "w-5 h-5",
+            md: "w-6 h-6",
+            lg: "w-7 h-7",
+        },
     },
-    passed: {
-      true: " bg-primary-400",
-      false: "",
+    defaultVariants: {
+        active: false,
+        size: "md",
     },
-    size: {
-      sm: "w-5 h-5",
-      md: "w-6 h-6",
-      lg: "w-7 h-7",
-    },
-  },
-  defaultVariants: {
-    active: false,
-    size: "md",
-  },
 });
 
 const line = tv({
-  base: "h-[0px] border-[2px] border-[#8390A4] absolute z-[-1] top-1/2 -translate-y-1/2 left-[50%] w-full",
-  variants: {
-    passed: {
-      true: "border-primary-400",
-      false: "",
+    base: "h-[0px] border-[2px] border-[#8390A4] absolute z-[-1] top-1/2 -translate-y-1/2 left-[50%] w-full",
+    variants: {
+        passed: {
+            true: "border-primary-400",
+            false: "",
+        },
+        size: {
+            sm: "border-[1.5px]",
+            md: "border-[2px]",
+            lg: "border-[2.5px]",
+        },
+        dashed: {
+            true: "[border-style:dashed] [border-width:2px_0_0_0] [gap:1rem]",
+            false: "",
+        },
     },
-    size: {
-      sm: "border-[1.5px]",
-      md: "border-[2px]",
-      lg: "border-[2.5px]",
+    defaultVariants: {
+        size: "md",
+        dashed: false,
     },
-    dashed: {
-      true: "[border-style:dashed] [border-width:2px_0_0_0] [gap:1rem]",
-      false: "",
-    },
-  },
-  defaultVariants: {
-    size: "md",
-    dashed: false,
-  },
 });
 
 const customInput = tv({
-  base: "bg-white bg-opacity-10 text-white text-center focus:outline-none focus:border-primary-400 p-1 rounded-md",
-  variants: {
-    size: {
-      sm: "text-[12px] w-28",
-      md: "text-[13px] w-[7rem]",
-      lg: "text-lg w-36",
+    base: "bg-white bg-opacity-10 text-white text-center focus:outline-none focus:border-primary-400 p-1 rounded-md",
+    variants: {
+        size: {
+            sm: "text-[12px] w-28",
+            md: "text-[13px] w-[7rem]",
+            lg: "text-lg w-36",
+        },
     },
-  },
-  defaultVariants: {
-    size: "md",
-  },
+    defaultVariants: {
+        size: "md",
+    },
 });
 
 const label = tv({
-  base: "mt-2 text-white text-center",
-  variants: {
-    size: {
-      sm: "text-[14px]",
-      md: "text-base",
-      lg: "text-lg",
+    base: "mt-2 text-white text-center",
+    variants: {
+        size: {
+            sm: "text-[14px]",
+            md: "text-base",
+            lg: "text-lg",
+        },
     },
-  },
-  defaultVariants: {
-    size: "md",
-  },
+    defaultVariants: {
+        size: "md",
+    },
 });
 
 /**
@@ -121,126 +121,132 @@ const label = tv({
  * ```
  */
 interface BulletSliderProps extends VariantProps<typeof bulletSlider> {
-  steps: JSX.Element[];
-  onChange: (step: number, customValue?: string) => void;
-  className?: string;
-  defaultActiveStep?: number;
-  linePassed?: boolean;
-  showCustomInput?: boolean;
-  customInputPlaceholder?: string;
-  defaultCustomValue?: string;
-  size?: "sm" | "md" | "lg";
+    steps: JSX.Element[];
+    onChange: (step: number, customValue?: string) => void;
+    className?: string;
+    defaultActiveStep?: number;
+    linePassed?: boolean;
+    showCustomInput?: boolean;
+    customInputPlaceholder?: string;
+    defaultCustomValue?: string;
+    size?: "sm" | "md" | "lg";
 }
 
 export const BulletSlider: React.FC<BulletSliderProps> = ({
-  steps,
-  onChange,
-  defaultActiveStep = 1,
-  className,
-  linePassed = true,
-  showCustomInput = false,
-  customInputPlaceholder = "Custom",
-  defaultCustomValue = "",
-  size = "md",
+    steps,
+    onChange,
+    defaultActiveStep = 1,
+    className,
+    linePassed = true,
+    showCustomInput = false,
+    customInputPlaceholder = "Custom",
+    defaultCustomValue = "",
+    size = "md",
 }) => {
-  const [lineWidth, setLineWidth] = useState(0);
-  const [customValue, setCustomValue] = useState(defaultCustomValue);
-  const [activeStep, setActiveStep] = useState(defaultActiveStep);
+    const [lineWidth, setLineWidth] = useState(0);
+    const [customValue, setCustomValue] = useState(defaultCustomValue);
+    const [activeStep, setActiveStep] = useState(defaultActiveStep);
 
-  const bulletRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const bulletRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const totalSteps = showCustomInput
-    ? [...steps, <div key="custom">Custom</div>]
-    : steps;
-  const lastIndex = totalSteps.length - 1;
+    const totalSteps = showCustomInput
+        ? [...steps, <div key="custom">Custom</div>]
+        : steps;
+    const lastIndex = totalSteps.length - 1;
 
-  const calculateLineWidth = () => {
-    if (bulletRefs.current[0] && bulletRefs.current[1]) {
-      const standardWidth =
-        bulletRefs.current[1].getBoundingClientRect().left -
-        bulletRefs.current[0].getBoundingClientRect().left;
-      setLineWidth(standardWidth);
-    }
-  };
+    const calculateLineWidth = () => {
+        if (bulletRefs.current[0] && bulletRefs.current[1]) {
+            const standardWidth =
+                bulletRefs.current[1].getBoundingClientRect().left -
+                bulletRefs.current[0].getBoundingClientRect().left;
+            setLineWidth(standardWidth);
+        }
+    };
 
-  const getLineWidth = (index: number) => {
-    if (showCustomInput && index === totalSteps.length - 2) {
-      return lineWidth * 1.2;
-    }
-    return lineWidth;
-  };
+    const getLineWidth = (index: number) => {
+        if (showCustomInput && index === totalSteps.length - 2) {
+            return lineWidth * 1.2;
+        }
+        return lineWidth;
+    };
 
-  useEffect(() => {
-    calculateLineWidth();
-    window.addEventListener("resize", calculateLineWidth);
-    return () => window.removeEventListener("resize", calculateLineWidth);
-  }, []);
+    useEffect(() => {
+        calculateLineWidth();
+        window.addEventListener("resize", calculateLineWidth);
+        return () => window.removeEventListener("resize", calculateLineWidth);
+    }, []);
 
-  useEffect(() => {
-    calculateLineWidth();
-  }, [steps]);
+    useEffect(() => {
+        calculateLineWidth();
+    }, [steps]);
 
-  const handleStepClick = (index: number) => {
-    setActiveStep(index);
-    if (index === lastIndex && showCustomInput) {
-      onChange(index, customValue);
-    } else {
-      onChange(index);
-    }
-  };
+    const handleStepClick = (index: number) => {
+        setActiveStep(index);
+        if (index === lastIndex && showCustomInput) {
+            onChange(index, customValue);
+        } else {
+            onChange(index);
+        }
+    };
 
-  const handleCustomInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setCustomValue(value);
-    if (activeStep === lastIndex) {
-      onChange(lastIndex, value);
-    }
-  };
+    const handleCustomInputChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const value = e.target.value;
+        setCustomValue(value);
+        if (activeStep === lastIndex) {
+            onChange(lastIndex, value);
+        }
+    };
 
-  return (
-    <div className={bulletSlider({ size, className })}>
-      {totalSteps.map((step, index) => (
-        <div
-          key={index}
-          className="flex flex-col items-center"
-          ref={(el) => (bulletRefs.current[index] = el)}
-        >
-          <div className="flex items-center relative">
-            <div
-              className={bullet({
-                active: activeStep === index,
-                passed: linePassed ? activeStep > index : false,
-                size,
-              })}
-              onClick={() => handleStepClick(index)}
-            />
-            {index !== totalSteps.length - 1 && (
-              <div
-                style={{ width: `${getLineWidth(index)}px` }}
-                className={line({
-                  passed: linePassed ? activeStep > index : false,
-                  size,
-                  dashed: showCustomInput && index === totalSteps.length - 2,
-                })}
-              />
-            )}
-          </div>
-          <div className={label({ size })}>
-            {showCustomInput && index === lastIndex ? (
-              <input
-                type="text"
-                value={customValue}
-                onChange={handleCustomInputChange}
-                placeholder={customInputPlaceholder}
-                className={customInput({ size })}
-                onFocus={() => handleStepClick(index)}
-              />
-            ) : (
-              step
-            )}
-          </div>
+    return (
+        <div className={bulletSlider({ size, className })}>
+            {totalSteps.map((step, index) => (
+                <div
+                    key={index}
+                    className="flex flex-col items-center"
+                    ref={(el) => (bulletRefs.current[index] = el)}
+                >
+                    <div className="relative flex items-center">
+                        <div
+                            className={bullet({
+                                active: activeStep === index,
+                                passed: linePassed ? activeStep > index : false,
+                                size,
+                            })}
+                            onClick={() => handleStepClick(index)}
+                        />
+                        {index !== totalSteps.length - 1 && (
+                            <div
+                                style={{ width: `${getLineWidth(index)}px` }}
+                                className={line({
+                                    passed: linePassed
+                                        ? activeStep > index
+                                        : false,
+                                    size,
+                                    dashed:
+                                        showCustomInput &&
+                                        index === totalSteps.length - 2,
+                                })}
+                            />
+                        )}
+                    </div>
+                    <div className={label({ size })}>
+                        {showCustomInput && index === lastIndex ? (
+                            <input
+                                type="text"
+                                value={customValue}
+                                onChange={handleCustomInputChange}
+                                placeholder={customInputPlaceholder}
+                                className={customInput({ size })}
+                                onFocus={() => handleStepClick(index)}
+                            />
+                        ) : (
+                            step
+                        )}
+                    </div>
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 };

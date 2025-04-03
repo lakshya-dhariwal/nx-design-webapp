@@ -3,23 +3,23 @@ import React from "react";
 import { useForm, FormProvider, FieldValues } from "react-hook-form";
 
 type FormPropsWithHTMLAttributes<TFieldValues extends FieldValues> =
-  FormProps<TFieldValues> & React.FormHTMLAttributes<HTMLFormElement>;
+    FormProps<TFieldValues> & React.FormHTMLAttributes<HTMLFormElement>;
 
 function Form<TFieldValues extends FieldValues>({
-  onSubmit,
-  children,
+    onSubmit,
+    children,
 
-  ...formProps
+    ...formProps
 }: FormPropsWithHTMLAttributes<TFieldValues>) {
-  const methods = useForm<TFieldValues>(formProps);
+    const methods = useForm<TFieldValues>(formProps);
 
-  return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} {...formProps}>
-        {children}
-      </form>
-    </FormProvider>
-  );
+    return (
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)} {...formProps}>
+                {children}
+            </form>
+        </FormProvider>
+    );
 }
 
 export default Form;

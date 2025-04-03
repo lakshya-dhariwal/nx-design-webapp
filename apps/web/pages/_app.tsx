@@ -10,7 +10,6 @@ function MyApp({
 }: AppProps) {
     return (
         <>
-
             <Head>
                 <title>Mable : Campaign Hero AI</title>
                 <meta
@@ -19,10 +18,8 @@ function MyApp({
                 />
             </Head>
             <main className="">
-
                 <Component {...pageProps} />
             </main>
-
         </>
     );
 }

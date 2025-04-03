@@ -3,15 +3,15 @@ import { BidirectionalSlider } from "./index";
 import { useState } from "react";
 
 const meta: Meta<typeof BidirectionalSlider> = {
-  title: "Atoms/Control/Slider/Bidirectional Slider",
-  component: BidirectionalSlider,
-  tags: ["autodocs"],
-  parameters: {
-    componentSubtitle:
-      "A controlled bidirectional slider that allows selection of values relative to a centered origin point with precise step control.",
-    docs: {
-      description: {
-        component: `
+    title: "Atoms/Control/Slider/Bidirectional Slider",
+    component: BidirectionalSlider,
+    tags: ["autodocs"],
+    parameters: {
+        componentSubtitle:
+            "A controlled bidirectional slider that allows selection of values relative to a centered origin point with precise step control.",
+        docs: {
+            description: {
+                component: `
 # Bidirectional Slider
 
 A controlled bidirectional slider with a visually centered origin point and precise gap control on both sides.
@@ -46,50 +46,50 @@ const [value, setValue] = useState(5);
 | value | number | Yes | Current value of the slider |
 | onChange | (value: number, bidirectionalValue: number) => void | Yes | Callback for value changes |
 `,
-      },
+            },
+        },
     },
-  },
 } satisfies Meta<typeof BidirectionalSlider>;
 
 export default meta;
 
 // Base slider component with controlled state
 const SliderWithState = ({
-  initialValue,
-  ranges,
-  color,
+    initialValue,
+    ranges,
+    color,
 }: {
-  initialValue: number;
-  ranges: [[number, number], [number], [number, number]];
-  color?: string;
+    initialValue: number;
+    ranges: [[number, number], [number], [number, number]];
+    color?: string;
 }) => {
-  const [value, setValue] = useState(initialValue);
-  const [bidirectionalValue, setBidirectionalValue] = useState(0);
+    const [value, setValue] = useState(initialValue);
+    const [bidirectionalValue, setBidirectionalValue] = useState(0);
 
-  return (
-    <div className="space-y-4">
-      <BidirectionalSlider
-        ranges={ranges}
-        color={color}
-        value={value}
-        onChange={(newValue, newBidirectionalValue) => {
-          setValue(newValue);
-          setBidirectionalValue(newBidirectionalValue);
-        }}
-      />
-      <div className="text-sm text-gray-600">
-        External State: {value} ({bidirectionalValue}%)
-      </div>
-    </div>
-  );
+    return (
+        <div className="space-y-4">
+            <BidirectionalSlider
+                ranges={ranges}
+                color={color}
+                value={value}
+                onChange={(newValue, newBidirectionalValue) => {
+                    setValue(newValue);
+                    setBidirectionalValue(newBidirectionalValue);
+                }}
+            />
+            <div className="text-sm text-gray-600">
+                External State: {value} ({bidirectionalValue}%)
+            </div>
+        </div>
+    );
 };
 
 export const Default = {
-  render: () => (
-    <SliderWithState
-      initialValue={1.0}
-      ranges={[[0.1, 0.1], [1], [10, 1]]}
-      color="#8b5cf6"
-    />
-  ),
+    render: () => (
+        <SliderWithState
+            initialValue={1.0}
+            ranges={[[0.1, 0.1], [1], [10, 1]]}
+            color="#8b5cf6"
+        />
+    ),
 };

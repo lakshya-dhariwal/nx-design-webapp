@@ -1,11 +1,9 @@
-
-
-export const getCampaignAPI = ()=>{
+export const getCampaignAPI = () => {
     //mock api
     return [
         {
             id: 1,
-            name: 'Campaign 1',
+            name: "Campaign 1",
             impressions: 100000,
             clicks: 5000,
             conversions: 120,
@@ -15,7 +13,7 @@ export const getCampaignAPI = ()=>{
         },
         {
             id: 2,
-            name: 'Campaign 2',
+            name: "Campaign 2",
             impressions: 120000,
             clicks: 6000,
             conversions: 150,
@@ -25,7 +23,7 @@ export const getCampaignAPI = ()=>{
         },
         {
             id: 3,
-            name: 'Campaign 3',
+            name: "Campaign 3",
             impressions: 150000,
             clicks: 7500,
             conversions: 180,
@@ -33,5 +31,5 @@ export const getCampaignAPI = ()=>{
             cost: 15000,
             roi: 3.2,
         },
-    ]; 
-}
+    ];
+};

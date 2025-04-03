@@ -1,78 +1,84 @@
-import React, { useState, useEffect } from "react";
-import ChatMessage from "../../atoms/ChatMessage";
+import { Meta, StoryObj } from "@storybook/react";
+import ChatWidget from "./index";
 
-interface ChatWidgetProps {
-  messages: any[];
-  isGenerating: boolean;
-  addMessage: (message: string) => void;
-  sendMessage: (message: string) => void;
-  clearMessages: () => void;
-}
-
-const ChatWidget: React.FC<ChatWidgetProps> = ({
-  messages,
-  isGenerating,
-  addMessage,
-  sendMessage,
-  clearMessages,
-}) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [currentMessage, setCurrentMessage] = useState("");
-
-  // Update state with the latest messages
-  useEffect(() => {
-    if (messages.length > 0) {
-      setCurrentMessage(""); // Clear input after sending message
-    }
-  }, [messages]);
-
-  const handleSendMessage = () => {
-    if (currentMessage.trim()) {
-      sendMessage(currentMessage);
-    }
-  };
-
-  return (
-    <div
-      className={`fixed top-0 right-0 w-[400px] h-full bg-gray-800 shadow-lg transform transition-all duration-500 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}
-      style={{ zIndex: 9999 }}
-    >
-      <div className="flex justify-between items-center p-4 bg-primary-600">
-        <span className="text-white text-lg">Chat Assistant</span>
-        <button onClick={() => setIsOpen(!isOpen)} className="text-white">
-          {isOpen ? "Close" : "Open"}
-        </button>
-      </div>
-      <div className="flex flex-col p-4 overflow-y-auto">
-        {messages.map((message) => (
-          <ChatMessage key={message.id} content={message.content} isBot={message.isBot} />
-        ))}
-        {isGenerating && (
-          <div className="text-white mt-2">Bot is typing...</div>
-        )}
-        <div className="flex items-center mt-4">
-          <input
-            type="text"
-            className="p-2 w-full rounded-lg"
-            placeholder="Type your message..."
-            value={currentMessage}
-            onChange={(e) => setCurrentMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSendMessage();
-              }
-            }}
-          />
-          <button
-            onClick={handleSendMessage}
-            className="bg-blue-500 text-white p-2 rounded ml-2"
-          >
-            Send
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+const meta: Meta<typeof ChatWidget> = {
+    title: "Molecules/ChatWidget",
+    component: ChatWidget,
+    parameters: {
+        layout: "fullscreen",
+        componentSubtitle:
+            "ChatWidget is a component for displaying chat messages, allowing users to interact with a chatbot.",
+    },
 };
 
-export default ChatWidget;
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+const mockSendMessage = (message: string) => {
+    console.log("Sent message:", message);
+};
+
+const mockAddMessage = (message: string) => {
+    console.log("Added message:", message);
+};
+
+const mockClearMessages = () => {
+    console.log("Messages cleared");
+};
+
+// Default ChatWidget story
+export const Default: Story = {
+    args: {
+        messages: [
+            { id: "1", content: "Hello, how can I help you?", isBot: true },
+            { id: "2", content: "I need help with my account.", isBot: false },
+        ],
+        isGenerating: false,
+        addMessage: mockAddMessage,
+        sendMessage: mockSendMessage,
+        clearMessages: mockClearMessages,
+    },
+};
+
+// ChatWidget with loading state
+export const GeneratingState: Story = {
+    args: {
+        messages: [
+            { id: "1", content: "Hello, how can I help you?", isBot: true },
+            { id: "2", content: "I need help with my account.", isBot: false },
+        ],
+        isGenerating: true,
+        addMessage: mockAddMessage,
+        sendMessage: mockSendMessage,
+        clearMessages: mockClearMessages,
+    },
+};
+
+// ChatWidget with no messages
+export const NoMessages: Story = {
+    args: {
+        messages: [],
+        isGenerating: false,
+        addMessage: mockAddMessage,
+        sendMessage: mockSendMessage,
+        clearMessages: mockClearMessages,
+    },
+};
+
+// ChatWidget with different size and styles
+export const SmallSize: Story = {
+    args: {
+        messages: [
+            { id: "1", content: "Hello, how can I help you?", isBot: true },
+            { id: "2", content: "I need help with my account.", isBot: false },
+        ],
+        isGenerating: false,
+        addMessage: mockAddMessage,
+        sendMessage: mockSendMessage,
+        clearMessages: mockClearMessages,
+    },
+    parameters: {
+        layout: "centered", // Adjusting layout to center the component
+    },
+};

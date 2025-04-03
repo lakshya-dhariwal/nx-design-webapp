@@ -7,31 +7,22 @@
     "targets": {
         "lint": {
             "executor": "@nx/eslint:lint",
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "build": {
             "executor": "@nx/rollup:rollup",
-            "outputs": [
-                "{options.outputPath}"
-            ],
+            "outputs": ["{options.outputPath}"],
             "stylePreprocessorOptions": {
-                "includePaths": [
-                    "shared/styles"
-                ]
+                "includePaths": ["shared/styles"]
             },
             "extractCss": true,
             "options": {
                 "outputPath": "dist/packages/design",
                 "tsConfig": "packages/design/tsconfig.lib.json",
+                "postcssConfig": "packages/design/postcss.config.js",
                 "project": "packages/design/package.json",
                 "entryFile": "packages/design/src/index.ts",
-                "external": [
-                    "react",
-                    "react-dom",
-                    "react/jsx-runtime"
-                ],
+                "external": ["react", "react-dom", "react/jsx-runtime"],
                 "rollupConfig": "packages/design/rollup.config.cjs",
                 "compiler": "swc",
                 "assets": [
@@ -47,7 +38,8 @@
             "executor": "@nx/storybook:storybook",
             "options": {
                 "port": 4400,
-                "configDir": "packages/design/.storybook"
+                "configDir": "packages/design/.storybook",
+                "postcssConfig": "packages/design/postcss.config.js"
             },
             "configurations": {
                 "ci": {
@@ -57,12 +49,11 @@
         },
         "build-storybook": {
             "executor": "@nx/storybook:build",
-            "outputs": [
-                "{options.outputDir}"
-            ],
+            "outputs": ["{options.outputDir}"],
             "options": {
                 "outputDir": "dist/storybook/design",
-                "configDir": "packages/design/.storybook"
+                "configDir": "packages/design/.storybook",
+                "postcssConfig": "packages/design/postcss.config.js"
             },
             "configurations": {
                 "ci": {

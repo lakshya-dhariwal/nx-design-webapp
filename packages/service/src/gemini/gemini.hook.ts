@@ -8,5 +8,5 @@ export const useGemini = (): GeminiHook => {
         },
     ];
 
-    return {  aiFunctionTools };
+    return { aiFunctionTools };
 };

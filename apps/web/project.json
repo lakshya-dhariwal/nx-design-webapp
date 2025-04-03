@@ -1,7 +1,7 @@
 {
-    "name": "admin",
+    "name": "web",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/admin",
+    "sourceRoot": "apps/web",
     "projectType": "application",
     "targets": {
         "build": {
@@ -9,11 +9,11 @@
             "outputs": ["{options.outputPath}"],
             "defaultConfiguration": "production",
             "options": {
-                "outputPath": "dist/apps/admin"
+                "outputPath": "dist/apps/web"
             },
             "configurations": {
                 "development": {
-                    "outputPath": "apps/admin"
+                    "outputPath": "apps/web"
                 },
                 "production": {}
             }
@@ -22,16 +22,16 @@
             "executor": "@nx/next:server",
             "defaultConfiguration": "development",
             "options": {
-                "buildTarget": "admin:build",
+                "buildTarget": "web:build",
                 "dev": true
             },
             "configurations": {
                 "development": {
-                    "buildTarget": "admin:build:development",
+                    "buildTarget": "web:build:development",
                     "dev": true
                 },
                 "production": {
-                    "buildTarget": "admin:build:production",
+                    "buildTarget": "web:build:production",
                     "dev": false
                 }
             }
@@ -39,7 +39,7 @@
         "export": {
             "executor": "@nx/next:export",
             "options": {
-                "buildTarget": "admin:build:production"
+                "buildTarget": "web:build:production"
             }
         },
         "lint": {

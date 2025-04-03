@@ -1,3 +1,3 @@
-import useChatWidget from './chat.hook'
+import useChatWidget from "./chat.hook";
 
-export default useChatWidget
+export default useChatWidget;
