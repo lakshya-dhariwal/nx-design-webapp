@@ -10,6 +10,7 @@ import { IoEye } from "react-icons/io5";
 import { Tooltip } from "../../Misc/Tooltip";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
+// Custom event interface to handle different input types
 interface CustomChangeEvent {
   target: {
     name: string;
@@ -18,21 +19,23 @@ interface CustomChangeEvent {
   };
 }
 
+export type InputType =
+  | "text"
+  | "email"
+  | "password"
+  | "number"
+  | "tel"
+  | "radio"
+  | "switch"
+  | "checkbox"
+  | "dropdown";
+
 interface CustomInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   name: string;
   label?: string;
   tooltip?: string;
-  type:
-    | "text"
-    | "email"
-    | "password"
-    | "number"
-    | "tel"
-    | "radio"
-    | "switch"
-    | "checkbox"
-    | "dropdown";
+  type: InputType;
   radioOptions?: Array<{ label: string; value: string; disabled?: boolean }>;
   required?: boolean;
   badge?: string;
@@ -55,6 +58,122 @@ const inputClass = tv({
     },
   },
 });
+
+const getValidationRules = (
+  type: InputType,
+  name: string,
+  label: string | undefined,
+  required: boolean,
+  customValidation?: RegisterOptions,
+): RegisterOptions => {
+  let rules: RegisterOptions = {
+    required:
+      type !== "switch" && required ? `${label || name} is required` : false,
+  };
+
+  switch (type) {
+    case "email":
+      rules.pattern = {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+        message: "Invalid email address",
+      };
+      break;
+    case "tel":
+      rules.pattern = {
+        value: /^[0-9]{10}$/,
+        message: "Invalid phone number (10 digits required)",
+      };
+      break;
+    case "number":
+      rules.valueAsNumber = true;
+      rules.min = { value: 0, message: "Value must be positive" };
+      break;
+    case "password":
+      rules.minLength = {
+        value: 8,
+        message: "Password must be at least 8 characters long",
+      };
+      rules.validate = (value) => {
+        const hasUpperCase = /[A-Z]/.test(value);
+        const hasLowerCase = /[a-z]/.test(value);
+        const hasNumbers = /\d/.test(value);
+        const hasNonalphas = /\W/.test(value);
+        if (!hasUpperCase || !hasLowerCase || !hasNumbers || !hasNonalphas) {
+          return "Password must contain an uppercase letter, lowercase letter, number, and special character";
+        }
+        return true;
+      };
+      break;
+  }
+
+  if (customValidation)
+    rules = { ...rules, ...customValidation } as RegisterOptions;
+
+  return rules;
+};
+
+const createCustomEvent = (
+  name: string,
+  value: any,
+  type: string,
+): CustomChangeEvent => ({
+  target: {
+    name,
+    value,
+    type,
+  },
+});
+
+const PasswordInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<"input"> & { hasError: boolean; className?: string }
+>(({ hasError, className, ...props }, ref) => {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  return (
+    <div className="relative w-full">
+      <input
+        className={inputClass({
+          error: hasError,
+          withIcon: true,
+          className,
+        })}
+        type={showPassword ? "text" : "password"}
+        {...props}
+        ref={ref}
+      />
+      <button
+        type="button"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white focus:outline-none"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <IoIosEyeOff size={20} /> : <IoEye size={20} />}
+      </button>
+    </div>
+  );
+});
+
+PasswordInput.displayName = "PasswordInput";
+
+const StandardInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<"input"> & { hasError: boolean; className?: string }
+>(({ hasError, className, ...props }, ref) => {
+  return (
+    <div className="relative w-full">
+      <input
+        className={inputClass({
+          error: hasError,
+          className,
+        })}
+        {...props}
+        ref={ref}
+      />
+    </div>
+  );
+});
+
+StandardInput.displayName = "StandardInput";
 
 const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
   (
@@ -90,64 +209,9 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
       defaultValue: props.defaultValue,
     });
 
-    const [showPassword, setShowPassword] = React.useState(false);
-
-    const getValidationRules = (): RegisterOptions => {
-      let rules: RegisterOptions = {
-        required:
-          type !== "switch" && required
-            ? `${label || name} is required`
-            : false,
-      };
-
-      switch (type) {
-        case "email":
-          rules.pattern = {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "Invalid email address",
-          };
-          break;
-        case "tel":
-          rules.pattern = {
-            value: /^[0-9]{10}$/,
-            message: "Invalid phone number (10 digits required)",
-          };
-          break;
-        case "number":
-          rules.valueAsNumber = true;
-          rules.min = { value: 0, message: "Value must be positive" };
-          break;
-        case "password":
-          rules.minLength = {
-            value: 8,
-            message: "Password must be at least 8 characters long",
-          };
-          rules.validate = (value) => {
-            const hasUpperCase = /[A-Z]/.test(value);
-            const hasLowerCase = /[a-z]/.test(value);
-            const hasNumbers = /\d/.test(value);
-            const hasNonalphas = /\W/.test(value);
-            if (
-              !hasUpperCase ||
-              !hasLowerCase ||
-              !hasNumbers ||
-              !hasNonalphas
-            ) {
-              return "Password must contain an uppercase letter, lowercase letter, number, and special character";
-            }
-            return true;
-          };
-          break;
-      }
-
-      if (customValidation) rules = { ...customValidation };
-
-      return rules;
-    };
-
     const { ref: inputRef, ...inputProps } = register(
       name,
-      getValidationRules(),
+      getValidationRules(type, name, label, required, customValidation),
     );
 
     const handleChange = (
@@ -167,14 +231,36 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
       trigger(name);
     };
 
-    const createCustomEvent = (value: any): CustomChangeEvent => ({
-      target: {
-        name,
-        value,
-        type,
-      },
-    });
+    const hasError = !disabled && errors[name] !== undefined;
 
+    // Render label if needed
+    const renderLabel = () => {
+      if (type === "switch" || type === "radio") return null;
+
+      return (
+        <label htmlFor={name} className="body-2 text-white">
+          {label}
+        </label>
+      );
+    };
+
+    // Render tooltip if provided
+    const renderTooltip = () => {
+      if (!tooltip) return null;
+
+      return (
+        <Tooltip content={tooltip}>
+          <div>
+            <AiOutlineInfoCircle
+              className="text-white flex-shrink-0"
+              size={16}
+            />
+          </div>
+        </Tooltip>
+      );
+    };
+
+    // Render input based on type
     const renderInput = () => {
       switch (type) {
         case "radio":
@@ -190,7 +276,9 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
               className="space-y-2"
               labelClassName="body-2 text-white ml-3"
               onClick={(selectedOption) =>
-                handleChange(createCustomEvent(selectedOption.value))
+                handleChange(
+                  createCustomEvent(name, selectedOption.value, type),
+                )
               }
               size="sm"
             />
@@ -210,7 +298,9 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
                   else if (ref) ref.current = e;
                 }
               }}
-              onChange={(checked) => handleChange(createCustomEvent(checked))}
+              onChange={(checked) =>
+                handleChange(createCustomEvent(name, checked, type))
+              }
             />
           );
         case "dropdown":
@@ -219,7 +309,9 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
               disabled={disabled}
               size="lg"
               menuList={dropdownOptions || []}
-              onChange={(value) => handleChange(createCustomEvent(value.label))}
+              onChange={(value) =>
+                handleChange(createCustomEvent(name, value.label, type))
+              }
               className={className}
             >
               {fieldValue
@@ -227,72 +319,57 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
                 : (props.defaultValue ?? props.placeholder)}
             </DropdownMenu>
           );
-        default:
+        case "password":
           return (
-            <div className="relative w-full">
-              <input
-                defaultValue={props.defaultValue}
-                className={inputClass({
-                  error: !disabled && errors[name] !== undefined,
-                  withIcon: type === "password",
-                  className,
-                })}
-                disabled={disabled}
-                id={name}
-                type={type === "password" && showPassword ? "text" : type}
-                {...inputProps}
-                onChange={handleChange}
-                {...props}
-                ref={(e) => {
+            <PasswordInput
+              hasError={hasError}
+              className={className}
+              defaultValue={props.defaultValue}
+              disabled={disabled}
+              id={name}
+              {...inputProps}
+              onChange={handleChange}
+              {...props}
+              ref={(e) => {
+                if (e) {
                   inputRef(e);
                   if (typeof ref === "function") ref(e);
-                }}
-              />
-              {type === "password" && (
-                <button
-                  type="button"
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white focus:outline-none"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <IoIosEyeOff size={20} />
-                  ) : (
-                    <IoEye size={20} />
-                  )}
-                </button>
-              )}
-            </div>
+                  else if (ref) ref.current = e;
+                }
+              }}
+            />
+          );
+        default:
+          return (
+            <StandardInput
+              hasError={hasError}
+              className={className}
+              defaultValue={props.defaultValue}
+              disabled={disabled}
+              id={name}
+              type={type}
+              {...inputProps}
+              onChange={handleChange}
+              {...props}
+              ref={(e) => {
+                if (e) {
+                  inputRef(e);
+                  if (typeof ref === "function") ref(e);
+                  else if (ref) ref.current = e;
+                }
+              }}
+            />
           );
       }
     };
 
+    // Reset field when disabled status changes
     React.useEffect(() => {
-      renderInput();
-      if (!disabled) resetField(name, { defaultValue: props.defaultValue });
-    }, [disabled]);
+      if (!disabled) {
+        resetField(name, { defaultValue: props.defaultValue });
+      }
+    }, [disabled, name, props.defaultValue, resetField]);
 
-    const renderLabel = () => {
-      if (type === "switch" || type === "radio") return null;
-      return (
-        <label htmlFor={name} className="body-2 text-white">
-          {label}
-        </label>
-      );
-    };
-
-    const renderTooltip = (text: string) => {
-      if (!tooltip) return null;
-      return (
-        <Tooltip content={text}>
-          <div>
-            <AiOutlineInfoCircle
-              className="text-white flex-shrink-0"
-              size={16}
-            />
-          </div>
-        </Tooltip>
-      );
-    };
     return (
       <div
         className={`flex flex-col gap-2 w-full py-1 h-fit ${disabled ? "opacity-40" : "opacity-100"}`}
@@ -304,10 +381,10 @@ const Input = React.forwardRef<HTMLInputElement, CustomInputProps>(
               {badge}
             </div>
           )}
-          {tooltip && renderTooltip(tooltip)}
+          {tooltip && renderTooltip()}
         </div>
         {renderInput()}
-        {!disabled && errors[name] && (
+        {hasError && (
           <span className="text-error-600 text-xs">
             {errors[name]?.message as string}
           </span>
