@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 # See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+=======
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+>>>>>>> master
 
 # compiled output
 dist
 tmp
+<<<<<<< HEAD
 out-tsc
+=======
+/out-tsc
+>>>>>>> master
 
 # dependencies
 node_modules
 
+<<<<<<< HEAD
 # IDEs and editors
 /.idea
 .project
@@ -45,3 +54,17 @@ vite.config.*.timestamp*
 vitest.config.*.timestamp*
 
 storybook-static
+=======
+# misc
+npm-debug.log
+yarn-error.log
+*.log
+
+# System Files
+.DS_Store
+.nx/cache
+.env
+# Next.js
+.next
+.env
+>>>>>>> master

@@ -1,0 +1,74 @@
+{
+    "name": "design",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "packages/design/src",
+    "projectType": "library",
+    "tags": [],
+    "targets": {
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": [
+                "{options.outputFile}"
+            ]
+        },
+        "build": {
+            "executor": "@nx/rollup:rollup",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                    "shared/styles"
+                ]
+            },
+            "extractCss": true,
+            "options": {
+                "outputPath": "dist/packages/design",
+                "tsConfig": "packages/design/tsconfig.lib.json",
+                "project": "packages/design/package.json",
+                "entryFile": "packages/design/src/index.ts",
+                "external": [
+                    "react",
+                    "react-dom",
+                    "react/jsx-runtime"
+                ],
+                "rollupConfig": "packages/design/rollup.config.cjs",
+                "compiler": "swc",
+                "assets": [
+                    {
+                        "glob": "packages/design/README.md",
+                        "input": ".",
+                        "output": "."
+                    }
+                ]
+            }
+        },
+        "storybook": {
+            "executor": "@nx/storybook:storybook",
+            "options": {
+                "port": 4400,
+                "configDir": "packages/design/.storybook"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        },
+        "build-storybook": {
+            "executor": "@nx/storybook:build",
+            "outputs": [
+                "{options.outputDir}"
+            ],
+            "options": {
+                "outputDir": "dist/storybook/design",
+                "configDir": "packages/design/.storybook"
+            },
+            "configurations": {
+                "ci": {
+                    "quiet": true
+                }
+            }
+        }
+    }
+}
